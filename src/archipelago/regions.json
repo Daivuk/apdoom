@@ -1,5 +1,5 @@
 {
-    "Hangar": {
+    "E1M1": {
         "episode": 1, "map": 1,
         "Regions": {
             "Main": {
@@ -10,7 +10,7 @@
             }
         }
     },
-    "Nuclear Plant": {
+    "E1M2": {
         "episode": 1, "map": 2,
         "Regions": {
             "Main": {
@@ -25,7 +25,7 @@
             }
         }
     },
-    "Toxin Refinery": {
+    "E1M3": {
         "episode": 1, "map": 3,
         "Regions": {
             "Main": {
@@ -44,7 +44,7 @@
             }
         }
     },
-    "Command Control": {
+    "E1M4": {
         "episode": 1, "map": 4,
         "Regions": {
             "Main": {
@@ -59,7 +59,7 @@
             }
         }
     },
-    "Phobos Lab": {
+    "E1M5": {
         "episode": 1, "map": 5,
         "Regions": {
             "Main": {
@@ -78,7 +78,7 @@
             }
         }
     },
-    "Central Processing": {
+    "E1M6": {
         "episode": 1, "map": 6,
         "Regions": {
             "Main": {
@@ -101,7 +101,7 @@
             }
         }
     },
-    "Computer Station": {
+    "E1M7": {
         "episode": 1, "map": 7,
         "Regions": {
             "Main": {
@@ -128,7 +128,7 @@
             }
         }
     },
-    "Phobos Anomaly": {
+    "E1M8": {
         "episode": 1, "map": 8,
         "Regions": {
             "Main": {
@@ -139,7 +139,7 @@
             }
         }
     },
-    "Military Base": {
+    "E1M9": {
         "episode": 1, "map": 9,
         "Regions": {
             "Main": {
@@ -162,7 +162,7 @@
             }
         }
     },
-    "Deimos Anomaly": {
+    "E2M1": {
         "episode": 2, "map": 1,
         "Regions": {
             "Main": {
@@ -181,7 +181,7 @@
             }
         }
     },
-    "Containment Area": {
+    "E2M2": {
         "episode": 2, "map": 2,
         "Regions": {
             "Main": {
@@ -204,7 +204,7 @@
             }
         }
     },
-    "Refinery": {
+    "E2M3": {
         "episode": 2, "map": 3,
         "Regions": {
             "Main": {
@@ -219,7 +219,7 @@
             }
         }
     },
-    "Deimos Lab": {
+    "E2M4": {
         "episode": 2, "map": 4,
         "Regions": {
             "Main": {
@@ -238,7 +238,7 @@
             }
         }
     },
-    "Command Center": {
+    "E2M5": {
         "episode": 2, "map": 5,
         "Regions": {
             "Main": {
@@ -249,7 +249,7 @@
             }
         }
     },
-    "Halls of the Damned": {
+    "E2M6": {
         "episode": 2, "map": 6,
         "Regions": {
             "Main": {
@@ -268,7 +268,7 @@
             }
         }
     },
-    "Spawning Vats": {
+    "E2M7": {
         "episode": 2, "map": 7,
         "Regions": {
             "Main": {
@@ -291,7 +291,7 @@
             }
         }
     },
-    "Tower of Babel": {
+    "E2M8": {
         "episode": 2, "map": 8,
         "Regions": {
             "Main": {
@@ -302,7 +302,7 @@
             }
         }
     },
-    "Fortress of Mystery": {
+    "E2M9": {
         "episode": 2, "map": 9,
         "Regions": {
             "Main": {
@@ -325,7 +325,7 @@
             }
         }
     },
-    "Hell Keep": {
+    "E3M1": {
         "episode": 3, "map": 1,
         "Regions": {
             "Main": {
@@ -336,7 +336,7 @@
             }
         }
     },
-    "Slough of Despair": {
+    "E3M2": {
         "episode": 3, "map": 2,
         "Regions": {
             "Main": {
@@ -351,7 +351,7 @@
             }
         }
     },
-    "Pandemonium": {
+    "E3M3": {
         "episode": 3, "map": 3,
         "Regions": {
             "Main": {
@@ -366,7 +366,7 @@
             }
         }
     },
-    "House of Pain": {
+    "E3M4": {
         "episode": 3, "map": 4,
         "Regions": {
             "Main": {
@@ -389,7 +389,7 @@
             }
         }
     },
-    "Unholy Cathedral": {
+    "E3M5": {
         "episode": 3, "map": 5,
         "Regions": {
             "Main": {
@@ -408,7 +408,7 @@
             }
         }
     },
-    "Mt. Erebus": {
+    "E3M6": {
         "episode": 3, "map": 6,
         "Regions": {
             "Main": {
@@ -423,7 +423,7 @@
             }
         }
     },
-    "Limbo": {
+    "E3M7": {
         "episode": 3, "map": 7,
         "Regions": {
             "Main": {
@@ -446,7 +446,7 @@
             }
         }
     },
-    "Dis": {
+    "E3M8": {
         "episode": 3, "map": 8,
         "Regions": {
             "Main": {
@@ -457,7 +457,7 @@
             }
         }
     },
-    "Warrens": {
+    "E3M9": {
         "episode": 3, "map": 9,
         "Regions": {
             "Main": {

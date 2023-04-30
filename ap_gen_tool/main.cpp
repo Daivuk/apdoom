@@ -416,6 +416,7 @@ std::map<std::string, ap_item_t*> item_map;
 #define EP_COUNT 3
 #define MAP_COUNT 9
 
+
 const char* level_names[EP_COUNT][MAP_COUNT] = {
     {
         "Hangar",
@@ -670,6 +671,18 @@ static bool try_load_lump(const char *lump_name,
 }
 
 
+std::string make_level_name(int ep, int map)
+{
+    return "E" + std::to_string(ep) + "M" + std::to_string(map);
+}
+
+
+std::string make_level_name(const level_t* level)
+{
+    return make_level_name(level->ep, level->lvl);
+}
+
+
 int main(int argc, char** argv)
 {
     printf("AP Gen Tool\n");
@@ -799,10 +812,10 @@ int main(int argc, char** argv)
 
     for (auto level : levels)
     {
-        std::string lvl_prefix = level_names[level->ep - 1][level->lvl - 1] + std::string(" - "); //"E" + std::to_string(level->ep) + "M" + std::to_string(level->lvl) + " ";
+        std::string lvl_prefix = make_level_name(level) + std::string(" - "); //"E" + std::to_string(level->ep) + "M" + std::to_string(level->lvl) + " ";
         int i = 0;
 
-        auto& level_item = add_item(level_names[level->ep - 1][level->lvl - 1], -1, 1, PROGRESSION, "Levels");
+        auto& level_item = add_item(make_level_name(level), -1, 1, PROGRESSION, "Levels");
         level_item.ep = level->ep;
         level_item.lvl = level->lvl;
 
@@ -1040,7 +1053,8 @@ class ItemDict(TypedDict, total=False): \n\
         FILE* fout = fopen((py_out_dir + "Regions.py").c_str(), "w");
         fprintf(fout, "# This file is auto generated. More info: https://github.com/Daivuk/apdoom\n\n");
         fprintf(fout, "from typing import TYPE_CHECKING, List\n");
-        fprintf(fout, "from BaseClasses import Region, Entrance\n\n");
+        fprintf(fout, "from BaseClasses import Region, Entrance\n");
+        fprintf(fout, "from Maps import transform_map_name\n\n");
         
         fprintf(fout, "if TYPE_CHECKING:\n");
         fprintf(fout, "    from . import DOOM1993World\n\n\n");
@@ -1095,6 +1109,8 @@ class ItemDict(TypedDict, total=False): \n\
         fprintf(fout, "def create_2way_exit(doom_1993_world: \"DOOM1993World\", region1_name, region2_name):\n");
         fprintf(fout, "    player = doom_1993_world.player\n");
         fprintf(fout, "    world = doom_1993_world.multiworld\n\n");
+        fprintf(fout, "    region1_name = transform_map_name(world, region1_name)\n");
+        fprintf(fout, "    region2_name = transform_map_name(world, region2_name)\n\n");
         fprintf(fout, "    region1 = world.get_region(region1_name, player)\n");
         fprintf(fout, "    region2 = world.get_region(region2_name, player)\n\n");
         fprintf(fout, "    entrance1 = Entrance(player, region1_name + \" -> \" + region2_name, region1)\n");
@@ -1160,7 +1176,7 @@ class LocationDict(TypedDict, total=False): \n\
         std::map<std::string, std::set<std::string>> location_name_groups;
         for (const auto& loc : ap_locations)
         {
-            location_name_groups[level_names[loc.ep - 1][loc.lvl - 1]].insert(loc.name);
+            location_name_groups[make_level_name(loc.ep, loc.lvl)].insert(loc.name);
         }
         for (const auto& kv : location_name_groups)
         {
@@ -1186,7 +1202,7 @@ class LocationDict(TypedDict, total=False): \n\
         fprintf(fout, "events: Set[str] = [");
         for (auto level : levels)
         {
-            fprintf(fout, "\n    '%s - Complete',", level_names[level->ep - 1][level->lvl - 1]);
+            fprintf(fout, "\n    '%s - Complete',", make_level_name(level).c_str());
         }
         fprintf(fout, "\n]\n");
 
@@ -1415,8 +1431,8 @@ class LocationDict(TypedDict, total=False): \n\
         FILE* fout = fopen((py_out_dir + "Rules.py").c_str(), "w");
         fprintf(fout, "# This file is auto generated. More info: https://github.com/Daivuk/apdoom\n\n");
         fprintf(fout, "from typing import TYPE_CHECKING\n");
-
-        fprintf(fout, "from worlds.generic.Rules import set_rule\n\n");
+        fprintf(fout, "from worlds.generic.Rules import set_rule\n");
+        fprintf(fout, "from Maps import transform_map_name\n\n");
         
         fprintf(fout, "if TYPE_CHECKING:\n");
         fprintf(fout, "    from . import DOOM1993World\n\n\n");
@@ -1453,9 +1469,10 @@ class LocationDict(TypedDict, total=False): \n\
 
         for (auto level : levels)
         {
-            auto level_name = level_names[level->ep - 1][level->lvl - 1];
+            auto level_name_str = make_level_name(level);
+            auto level_name = level_name_str.c_str();
             const auto& level_json = levels_json[level_name];
-            fprintf(fout, "    # %s - E%iM%i\n", level_name, level_json["episode"].asInt(), level_json["map"].asInt());
+            fprintf(fout, "    # %s - E%iM%i\n", level_names[level->ep - 1][level->lvl - 1], level_json["episode"].asInt(), level_json["map"].asInt());
             auto region_names = level_json["Regions"].getMemberNames();
             for (const auto& region_name : region_names)
             {
@@ -1553,7 +1570,7 @@ class LocationDict(TypedDict, total=False): \n\
                     fprintf(fout, ")\n");
                 }
 #else // Rules by regions
-                fprintf(fout, "    set_rule(world.get_entrance(\"Mars -> %s %s\", player), lambda state: state.has(\"%s\", player, 1)", level_name, region_name.c_str(), level_name);
+                fprintf(fout, "    set_rule(world.get_entrance(\"Mars -> \" + transform_map_name(world, \"%s %s\"), player), lambda state: state.has(transform_map_name(world, \"%s\"), player, 1)", level_name, region_name.c_str(), level_name);
                 if (level->lvl > 1)
                     fprintf(fout, " and state.has(\"Shotgun\", player, 1)");
                 if (level->lvl > 3)
@@ -1561,9 +1578,9 @@ class LocationDict(TypedDict, total=False): \n\
                 for (const auto& required_item_and : required_items_and)
                 {
                     if (std::find(map_items.begin(), map_items.end(), required_item_and) != map_items.end())
-                        fprintf(fout, "and state.has(\"%s - %s\", player, 1)", level_name, required_item_and.c_str());
+                        fprintf(fout, " and state.has(transform_map_name(world, \"%s - %s\"), player, 1)", level_name, required_item_and.c_str());
                     else
-                        fprintf(fout, "and state.has(\"%s\", player, 1)", required_item_and.c_str());
+                        fprintf(fout, " and state.has(\"%s\", player, 1)", required_item_and.c_str());
                 }
                 if (!required_items_or.empty())
                 {
@@ -1575,7 +1592,7 @@ class LocationDict(TypedDict, total=False): \n\
                     if (!first) fprintf(fout, " or ");
                     first = false;
                     if (std::find(map_items.begin(), map_items.end(), required_item_or) != map_items.end())
-                        fprintf(fout, "state.has(\"%s - %s\", player, 1)", level_name, required_item_or.c_str());
+                        fprintf(fout, "state.has(transform_map_name(world, \"%s - %s\"), player, 1)", level_name, required_item_or.c_str());
                     else
                         fprintf(fout, "state.has(\"%s\", player, 1)", required_item_or.c_str());
                 }
