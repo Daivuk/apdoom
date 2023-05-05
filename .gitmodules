@@ -4,3 +4,6 @@
 [submodule "APCpp"]
 	path = APCpp
 	url = https://github.com/Daivuk/APCpp
+[submodule "onut"]
+	path = onut
+	url = https://github.com/Daivuk/onut.git

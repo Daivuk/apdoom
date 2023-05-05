@@ -25,7 +25,7 @@ extern "C"
 #endif
 
 
-#define APDOOM_VERSION "0.3.1"
+#define APDOOM_VERSION "0.3.4"
 #define APDOOM_VERSION_TEXT APDOOM_VERSION " (BETA)"
 #define APDOOM_VERSION_FULL_TEXT "APDOOM " APDOOM_VERSION_TEXT
 
@@ -104,6 +104,7 @@ typedef struct
     int random_items;
     int death_link;
     int episodes[3];
+    int victory;
     
 } ap_state_t;
 
