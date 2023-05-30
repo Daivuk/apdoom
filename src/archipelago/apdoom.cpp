@@ -359,6 +359,15 @@ void load_state()
 	for (int i = 0; i < AP_NUM_AMMO; ++i)
 		json_get_int(json["player"]["max_ammo"][i], ap_state.player_state.max_ammo[i]);
 
+	if (ap_state.player_state.backpack)
+	{
+		ap_state.player_state.max_ammo[0] = 200 * 2;
+		ap_state.player_state.max_ammo[1] = 50 * 2;
+		ap_state.player_state.max_ammo[2] = 300 * 2;
+		ap_state.player_state.max_ammo[3] = 50 * 2;
+	}
+
+
 	// Level states
 	for (int i = 0; i < AP_EPISODE_COUNT; ++i)
 	{
@@ -541,6 +550,10 @@ void f_itemrecv(int64_t item_id, bool notify_player)
 		// Backpack
 		case 8:
 			ap_state.player_state.backpack = 1;
+			ap_state.player_state.max_ammo[0] = 200 * 2;
+			ap_state.player_state.max_ammo[1] = 50 * 2;
+			ap_state.player_state.max_ammo[2] = 300 * 2;
+			ap_state.player_state.max_ammo[3] = 50 * 2;
             break;
 
 		// Is it a weapon?
