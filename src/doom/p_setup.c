@@ -401,6 +401,7 @@ void P_LoadSectors (int lump)
 	ss->floorheight = SHORT(ms->floorheight)<<FRACBITS;
 	ss->ceilingheight = SHORT(ms->ceilingheight)<<FRACBITS;
 	ss->floorpic = R_FlatNumForName(ms->floorpic);
+
 	ss->ceilingpic = R_FlatNumForName(ms->ceilingpic);
 	ss->lightlevel = SHORT(ms->lightlevel);
 	// [crispy] A11Y light level used for rendering

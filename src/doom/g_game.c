@@ -1846,14 +1846,17 @@ void G_ExitLevel (void)
 // Here's for the german edition.
 void G_SecretExitLevel (void) 
 { 
-    // IF NO WOLF3D LEVELS, NO SECRET EXIT!
-    if ( (gamemode == commercial)
-      && (W_CheckNumForName("map31")<0))
-	secretexit = false;
-    else
-	secretexit = true; 
-    G_ClearSavename();
-    gameaction = ga_completed; 
+    // [AP] Secret exits simply brings you back to level select, without finishing the level
+    gameaction = ga_levelselect; 
+    
+ //   // IF NO WOLF3D LEVELS, NO SECRET EXIT!
+ //   if ( (gamemode == commercial)
+ //     && (W_CheckNumForName("map31")<0))
+	//secretexit = false;
+ //   else
+	//secretexit = true; 
+ //   G_ClearSavename();
+ //   gameaction = ga_completed; 
 } 
 
 // [crispy] format time for level statistics
