@@ -377,7 +377,7 @@
         "episode": 3, "map": 4,
         "Regions": {
             "Main": {
-                "locations": ["Shotgun", "Berserk", "Mega Armor", "Chaingun", "Invulnerability", "Blue skull key", "Armor", "Mega Armor 2", "Armor 2", "Rocket launcher", "Armor 3"],
+                "locations": ["Shotgun", "Berserk", "Mega Armor", "Chaingun", "Invulnerability", "Blue skull key", "Armor", "Armor 2", "Rocket launcher", "Armor 3"],
                 "connects_to_hub": true,
                 "required_items_or": []
             },
@@ -390,7 +390,7 @@
                 "required_items_and": ["Yellow skull key", "Blue skull key"]
             },
             "Blue Red": {
-                "locations": ["Backpack"],
+                "locations": ["Backpack", "Mega Armor 2"],
                 "connects_to_exit": true,
                 "required_items_and": ["Red skull key", "Blue skull key"]
             }
