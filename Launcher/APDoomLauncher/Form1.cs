@@ -37,7 +37,7 @@ namespace APDoomLauncher
             Settings.Default.Password = txtPassword.Text;
             Settings.Default.Save();
 
-            string command_line = $"-apserver {txtServer.Text} -applayer {txtPlayer.Text}";
+            string command_line = $"-apserver {txtServer.Text} -applayer \"{txtPlayer.Text}\"";
             if (txtPassword.Text.Count() > 0)
             {
                 command_line += $" -password {txtPassword.Text}";

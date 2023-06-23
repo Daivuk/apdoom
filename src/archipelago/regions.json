@@ -377,12 +377,12 @@
         "episode": 3, "map": 4,
         "Regions": {
             "Main": {
-                "locations": ["Shotgun", "Berserk", "Mega Armor", "Chaingun", "Invulnerability", "Blue skull key", "Armor", "Armor 2", "Rocket launcher", "Armor 3"],
+                "locations": ["Shotgun", "Berserk", "Mega Armor", "Chaingun", "Invulnerability", "Blue skull key", "Armor", "Armor 2", "Rocket launcher"],
                 "connects_to_hub": true,
                 "required_items_or": []
             },
             "Blue": {
-                "locations": ["Yellow skull key", "Partial invisibility", "BFG9000", "Supercharge", "Invulnerability 2"],
+                "locations": ["Yellow skull key", "Partial invisibility", "BFG9000", "Supercharge", "Invulnerability 2", "Armor 3"],
                 "required_items_or": ["Blue skull key"]
             },
             "Blue Yellow": {
