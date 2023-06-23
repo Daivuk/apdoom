@@ -64,7 +64,7 @@
         "episode": 1, "map": 5,
         "Regions": {
             "Main": {
-                "locations": ["Yellow keycard", "Mega Armor", "Rocket launcher", "Shotgun", "Shotgun 2", "Backpack", "Shotgun 3", "Armor"],
+                "locations": ["Yellow keycard", "Mega Armor", "Rocket launcher", "Shotgun", "Shotgun 2", "Shotgun 3", "Armor"],
                 "connects_to_hub": true,
                 "required_items_or": []
             },
@@ -74,7 +74,7 @@
                 "required_items_or": ["Yellow keycard", "Blue keycard"]
             },
             "Yellow": {
-                "locations": ["Blue keycard", "Mega Armor 2", "Chainsaw", "Supercharge", "Chaingun", "Computer area map", "Partial invisibility", "Armor 2"],
+                "locations": ["Blue keycard", "Mega Armor 2", "Chainsaw", "Supercharge", "Chaingun", "Computer area map", "Partial invisibility", "Armor 2", "Backpack"],
                 "required_items_or": ["Yellow keycard"]
             }
         }
