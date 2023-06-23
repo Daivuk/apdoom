@@ -963,7 +963,6 @@ from typing import TypedDict, Dict, Set \n\
 class ItemDict(TypedDict, total=False): \n\
     classification: ItemClassification \n\
     count: int \n\
-    progression_count: int \n\
     name: str \n\
     doom_type: int # Unique numerical id used to spawn the item. \n\
     episode: int # Relevant if that item targets a specific level, like keycard or map reveal pickup. \n\
@@ -971,6 +970,7 @@ class ItemDict(TypedDict, total=False): \n\
 \n\
 \n\
 ");
+        //     progression_count: int \n\
 
         fprintf(fout, "item_table: Dict[int, ItemDict] = {\n");
         for (const auto& item : ap_items)
@@ -986,7 +986,7 @@ class ItemDict(TypedDict, total=False): \n\
                 case PROGRESSION_SKIP_BALANCING: fprintf(fout, "'classification': ItemClassification.progression_skip_balancing"); break;
             }
             fprintf(fout, ",\n             'count': %i", item.count);
-            fprintf(fout, ",\n             'progression_count': %i", item.progression_count);
+            //fprintf(fout, ",\n             'progression_count': %i", item.progression_count);
             fprintf(fout, ",\n             'name': '%s'", item.name.c_str());
             fprintf(fout, ",\n             'doom_type': %i", item.doom_type);
             fprintf(fout, ",\n             'episode': %i", item.ep);
