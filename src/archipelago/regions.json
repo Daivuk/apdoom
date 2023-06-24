@@ -279,7 +279,7 @@
                 "required_items_or": []
             },
             "Blue": {
-                "locations": ["Yellow keycard", "Chaingun", "Backpack", "Supercharge"],
+                "locations": ["Yellow keycard", "Chaingun", "Backpack"],
                 "required_items_or": ["Blue keycard"]
             },
             "Yellow": {
@@ -290,6 +290,10 @@
                 "locations": [],
                 "connects_to_exit": true,
                 "required_items_or": ["Red keycard"]
+            },
+            "Blue Red": {
+                "locations": ["Supercharge"],
+                "required_items_and": ["Blue keycard", "Red keycard"]
             }
         }
     },

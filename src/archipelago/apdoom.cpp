@@ -217,7 +217,7 @@ int apdoom_init(ap_settings_t* settings)
 	AP_SetLocationIsProgressionCallback(f_locprog);
 	AP_RegisterSlotDataIntCallback("difficulty", f_difficulty);
 	AP_RegisterSlotDataIntCallback("random_monsters", f_random_monsters);
-	AP_RegisterSlotDataIntCallback("random_items", f_random_items);
+	AP_RegisterSlotDataIntCallback("random_pickups", f_random_items);
 	AP_RegisterSlotDataIntCallback("episode1", f_episode1);
 	AP_RegisterSlotDataIntCallback("episode2", f_episode2);
 	AP_RegisterSlotDataIntCallback("episode3", f_episode3);
