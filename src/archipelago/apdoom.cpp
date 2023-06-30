@@ -223,6 +223,7 @@ int apdoom_init(ap_settings_t* settings)
 	AP_RegisterSlotDataIntCallback("episode3", f_episode3);
     AP_Start();
 
+        std::string playerName = ap_settings.player_name;
 	// Block DOOM until connection succeeded or failed
 	auto start_time = std::chrono::steady_clock::now();
 	while (true)
@@ -238,8 +239,8 @@ int apdoom_init(ap_settings_t* settings)
 				ap_was_connected = true;
 
 				// Create a directory where saves will go for this AP seed.
-				if (!AP_FileExists(("AP_" + ap_room_info.seed_name).c_str()))
-					AP_MakeDirectory(("AP_" + ap_room_info.seed_name).c_str());
+				if (!AP_FileExists(("AP_" + ap_room_info.seed_name + playerName).c_str()))
+					AP_MakeDirectory(("AP_" + ap_room_info.seed_name + playerName).c_str());
 
 				load_state();
 
@@ -333,7 +334,8 @@ static void json_get_int(const Json::Value& json, int& out_or_default)
 
 void load_state()
 {
-	std::string filename = "AP_" + ap_room_info.seed_name + "/apstate.json";
+        std::string playerName = ap_settings.player_name;
+	std::string filename = "AP_" + ap_room_info.seed_name + playerName + "/apstate.json";
 	std::ifstream f(filename);
 	if (!f.is_open())
 		return; // Could be no state yet, that's fine
@@ -412,7 +414,8 @@ void load_state()
 
 void save_state()
 {
-	std::string filename = "AP_" + ap_room_info.seed_name + "/apstate.json";
+        std::string playerName = ap_settings.player_name;
+	std::string filename = "AP_" + ap_room_info.seed_name + playerName + "/apstate.json";
 	std::ofstream f(filename);
 	if (!f.is_open())
 	{
