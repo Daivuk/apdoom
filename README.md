@@ -21,7 +21,7 @@ The rules were built using the WAD file found in the Steam release of DOOM. It w
 
 ## Archiving a Release
 
-1. Generate the project with CMake into `build/`. Crispy-DOOM repository setup doesn't use submodules and `add_subdirectory`, so it can be a bit tricky to get to work. Recommended using cmake GUI and install the libraries manually.
+1. Generate the project with CMake into `build/`. Crispy-DOOM repository setup doesn't use submodules and `add_subdirectory`, so it can be a bit tricky to get to work. Recommended using cmake GUI and install the libraries manually. See the next section for a bit more info on how I got this to work.
 2. Open the solution, select crispy-doom project and build in Release.
 3. Create a temporary folder `Release/`.
 4. Copy the `crispy-doom.exe` into `Release/`.
@@ -42,11 +42,38 @@ The rules were built using the WAD file found in the Steam release of DOOM. It w
     * Do not include subfolders with `AP_####...` format. Those are saves.
     * DO NOT INCLUDE `DOOM.WAD`.
 
+## CMake Setup
+
+### Install required libraries
+
+Create a folder on your PC to install libraries. I've put them in `C:\libs\`.
+Find, Download and install/unzip the following libs:
+- fluidsynth-2.3.2-winXP-x86
+- libsamplerate-0.2.2-win32
+- SDL2-2.26.5
+- SDL2_mixer-2.6.3
+
+### CMake configuration
+
+For this specific project, I recommend using the CMake GUI tool on Windows. I had a lot of manual setup to do.
+
+|Name|Value|
+|-|-|
+|FluidSynth_INCLUDE_DIRS|C:\libs\fluidsynth-2.3.2-winXP-x86\include|
+|FluidSynth_LIBRARIES|C:\libs\fluidsynth-2.3.2-winXP-x86\lib\fluidsynth.lib|
+|SAMPLERATE_INCLUDE_DIR|C:\libs\libsamplerate-0.2.2-win32\include|
+|SAMPLERATE_LIBRARY|C:\libs\libsamplerate-0.2.2-win32\lib\samplerate.lib|
+|SDL2_DIR|C:\libs\SDL2-2.26.5\cmake|
+|SDL2_MIXER_DIR|C:\libs\SDL2_mixer-2.6.3|
+|SDL2_MIXER_INCLUDE_DIR|C:\libs\SDL2_mixer-2.6.3\include|
+|SDL2_MIXER_LIBRARY|C:\libs\SDL2_mixer-2.6.3\lib\x86\SDL2_mixer.lib|
+
+
 ## Generating Rules.
 
 The rules for Archipelago server are generate with the project "ap_gen_tool". Setup the command line like so:
 ```
-path_to_wad/DOOM.WAD path_to_archipelago/worlds/ultimate_doom path_to_this_repository/src/archipelago
+path_to_wad/DOOM.WAD path_to_archipelago/worlds/doom_1993 path_to_this_repository/src/archipelago
 ```
 It will parse the WAD file, and dump the Python files into Archipelago, then dump some C header files into AP-DOOM.
 
