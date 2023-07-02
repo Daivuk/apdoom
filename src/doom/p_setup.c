@@ -496,6 +496,16 @@ boolean validate_doom_location(int ep, int map, int doom_type, int index)
     return level_info->thing_infos[index].doom_type == doom_type;
 }
 
+unsigned long long hash_seed(unsigned char *str)
+{
+    unsigned long long hash = 5381;
+    int c;
+
+    while (c = *str++)
+        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+
+    return hash;
+}
 
 //
 // P_LoadThings
@@ -516,7 +526,7 @@ void P_LoadThings (int lump)
 
     // Generate unique random seed from ap seed + level
     const char* ap_seed = apdoom_get_seed();
-    unsigned long long seed = strtoull(ap_seed, NULL, 10);
+    unsigned long long seed = hash_seed(ap_seed);
     seed += gameepisode * 9 + gamemap;
     srand(seed);
 

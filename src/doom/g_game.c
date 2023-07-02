@@ -2471,7 +2471,7 @@ void G_DoSaveGame (void)
 
     char filename[260];
 
-    snprintf(filename, 260, "AP_%s/AP_%s_E%iM%i.dsg", apdoom_get_seed(), apdoom_get_seed(), gameepisode, gamemap);
+    snprintf(filename, 260, "%s/save_E%iM%i.dsg", apdoom_get_seed(), gameepisode, gamemap);
 
     char *savegame_file;
     char *temp_savegame_file;

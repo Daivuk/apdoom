@@ -171,6 +171,7 @@ static bool ap_was_connected = false; // Got connected at least once. That means
 static std::set<int64_t> ap_progressive_locations;
 static bool ap_initialized = false;
 static std::vector<std::string> ap_cached_messages;
+static std::string ap_save_dir_name;
 
 
 void f_itemclr();
@@ -186,6 +187,24 @@ void f_episode3(int);
 void load_state();
 void save_state();
 void APSend(std::string msg);
+
+
+std::string string_to_hex(const char* str)
+{
+    static const char hex_digits[] = "0123456789ABCDEF";
+
+	std::string out;
+	std::string in = str;
+
+    out.reserve(in.length() * 2);
+    for (unsigned char c : in)
+    {
+        out.push_back(hex_digits[c >> 4]);
+        out.push_back(hex_digits[c & 15]);
+    }
+
+    return out;
+}
 
 
 int apdoom_init(ap_settings_t* settings)
@@ -237,9 +256,11 @@ int apdoom_init(ap_settings_t* settings)
 
 				ap_was_connected = true;
 
+				ap_save_dir_name = "AP_" + ap_room_info.seed_name + "_" + string_to_hex(ap_settings.player_name);
+
 				// Create a directory where saves will go for this AP seed.
-				if (!AP_FileExists(("AP_" + ap_room_info.seed_name).c_str()))
-					AP_MakeDirectory(("AP_" + ap_room_info.seed_name).c_str());
+				if (!AP_FileExists(ap_save_dir_name.c_str()))
+					AP_MakeDirectory(ap_save_dir_name.c_str());
 
 				load_state();
 
@@ -333,7 +354,7 @@ static void json_get_int(const Json::Value& json, int& out_or_default)
 
 void load_state()
 {
-	std::string filename = "AP_" + ap_room_info.seed_name + "/apstate.json";
+	std::string filename = ap_save_dir_name + "/apstate.json";
 	std::ifstream f(filename);
 	if (!f.is_open())
 		return; // Could be no state yet, that's fine
@@ -412,7 +433,7 @@ void load_state()
 
 void save_state()
 {
-	std::string filename = "AP_" + ap_room_info.seed_name + "/apstate.json";
+	std::string filename = ap_save_dir_name + "/apstate.json";
 	std::ofstream f(filename);
 	if (!f.is_open())
 	{
@@ -647,7 +668,7 @@ void f_episode3(int ep)
 
 const char* apdoom_get_seed()
 {
-	return ap_room_info.seed_name.c_str();
+	return ap_save_dir_name.c_str();
 }
 
 
