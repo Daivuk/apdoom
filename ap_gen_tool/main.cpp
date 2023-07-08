@@ -672,14 +672,15 @@ int main(int argc, char** argv)
 {
     printf("AP Gen Tool\n");
 
-    if (argc != 4) // Minimum effort validation
+    if (argc != 5) // Minimum effort validation
     {
-        printf("Usage: ap_gen_tool.exe DOOM.WAD python_py_out_dir cpp_py_out_dir\n  i.e: ap_gen_tool.exe DOOM.WAD C:\\github\\apdoom\\RunDir\\DOOM.WAD C:\\github\\Archipelago\\worlds\\doom_1993 C:\\github\\apdoom\\src\\archipelago");
+        printf("Usage: ap_gen_tool.exe DOOM.WAD python_py_out_dir cpp_py_out_dir poptracker_data_dir\n  i.e: ap_gen_tool.exe DOOM.WAD C:\\github\\apdoom\\RunDir\\DOOM.WAD C:\\github\\Archipelago\\worlds\\doom_1993 C:\\github\\apdoom\\src\\archipelago C:\\github\\apdoom\\data\\poptracker");
         return 1;
     }
 
     std::string py_out_dir = argv[2] + std::string("\\");
     std::string cpp_out_dir = argv[3] + std::string("\\");
+    std::string pop_tracker_data_dir = argv[4] + std::string("\\");
 
     FILE* f = fopen(argv[1], "rb");
     if (!f)
