@@ -1971,7 +1971,7 @@ void G_DoCompleted (void)
 
     // [AP]
     cache_ap_player_state();
-    ap_state.level_states[gameepisode - 1][gamemap - 1].completed = 1;
+    apdoom_complete_level(gameepisode, gamemap);
     apdoom_save_state();
     G_DoSaveGame();
 

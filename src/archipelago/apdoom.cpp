@@ -685,8 +685,11 @@ void apdoom_check_location(int ep, int map, int index)
 
 	int64_t id = it3->second;
 
-	ap_state.level_states[ep - 1][map - 1].checks[ap_state.level_states[ep - 1][map - 1].check_count] = index;
-	ap_state.level_states[ep - 1][map - 1].check_count++;
+	if (index >= 0)
+	{
+		ap_state.level_states[ep - 1][map - 1].checks[ap_state.level_states[ep - 1][map - 1].check_count] = index;
+		ap_state.level_states[ep - 1][map - 1].check_count++;
+	}
 
 	AP_SendItem(id);
 }
@@ -706,6 +709,14 @@ int apdoom_is_location_progression(int ep, int map, int index)
 	int64_t id = it3->second;
 
 	return (ap_progressive_locations.find(id) != ap_progressive_locations.end()) ? 1 : 0;
+}
+
+
+void apdoom_complete_level(int ep, int map)
+{
+	//if (ap_state.level_states[ep - 1][map - 1].completed) return; // Already completed
+    ap_state.level_states[ep - 1][map - 1].completed = 1;
+	apdoom_check_location(ep, map, -1); // -1 is complete location
 }
 
 
