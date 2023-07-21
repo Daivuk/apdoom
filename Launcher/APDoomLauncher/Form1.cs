@@ -18,6 +18,7 @@ namespace APDoomLauncher
         public Form1()
         {
             InitializeComponent();
+            this.AcceptButton = btnLaunchDOOM;
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs paintEventArgs)
@@ -76,12 +77,5 @@ namespace APDoomLauncher
             txtHeight.Enabled = !chkFullscreen.Checked;
         }
 
-        private void triggerStart(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btnLaunchDOOM_Click(sender, e);
-            }
-        }
     }
 }

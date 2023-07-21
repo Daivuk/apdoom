@@ -66,7 +66,7 @@ namespace APDoomLauncher
             // txtWidth
             // 
             this.txtWidth.Location = new System.Drawing.Point(148, 51);
-            this.txtWidth.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtWidth.Margin = new System.Windows.Forms.Padding(2);
             this.txtWidth.Name = "txtWidth";
             this.txtWidth.Size = new System.Drawing.Size(76, 20);
             this.txtWidth.TabIndex = 2;
@@ -75,7 +75,7 @@ namespace APDoomLauncher
             // txtHeight
             // 
             this.txtHeight.Location = new System.Drawing.Point(148, 74);
-            this.txtHeight.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtHeight.Margin = new System.Windows.Forms.Padding(2);
             this.txtHeight.Name = "txtHeight";
             this.txtHeight.Size = new System.Drawing.Size(76, 20);
             this.txtHeight.TabIndex = 3;
@@ -95,7 +95,7 @@ namespace APDoomLauncher
             // 
             this.chkFullscreen.AutoSize = true;
             this.chkFullscreen.Location = new System.Drawing.Point(149, 29);
-            this.chkFullscreen.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkFullscreen.Margin = new System.Windows.Forms.Padding(2);
             this.chkFullscreen.Name = "chkFullscreen";
             this.chkFullscreen.Size = new System.Drawing.Size(74, 17);
             this.chkFullscreen.TabIndex = 1;
@@ -106,7 +106,7 @@ namespace APDoomLauncher
             // btnLaunchDOOM
             // 
             this.btnLaunchDOOM.Location = new System.Drawing.Point(194, 566);
-            this.btnLaunchDOOM.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnLaunchDOOM.Margin = new System.Windows.Forms.Padding(2);
             this.btnLaunchDOOM.Name = "btnLaunchDOOM";
             this.btnLaunchDOOM.Size = new System.Drawing.Size(112, 24);
             this.btnLaunchDOOM.TabIndex = 8;
@@ -124,9 +124,9 @@ namespace APDoomLauncher
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtHeight);
             this.groupBox1.Location = new System.Drawing.Point(76, 240);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(350, 142);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
@@ -145,7 +145,7 @@ namespace APDoomLauncher
             // txtCommandLine
             // 
             this.txtCommandLine.Location = new System.Drawing.Point(148, 97);
-            this.txtCommandLine.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtCommandLine.Margin = new System.Windows.Forms.Padding(2);
             this.txtCommandLine.Name = "txtCommandLine";
             this.txtCommandLine.Size = new System.Drawing.Size(154, 20);
             this.txtCommandLine.TabIndex = 4;
@@ -159,9 +159,9 @@ namespace APDoomLauncher
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.txtPlayer);
             this.groupBox2.Location = new System.Drawing.Point(76, 412);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox2.Size = new System.Drawing.Size(350, 120);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
@@ -170,12 +170,11 @@ namespace APDoomLauncher
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(149, 77);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(2);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(153, 20);
             this.txtPassword.TabIndex = 7;
-            this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.triggerStart);
             // 
             // label5
             // 
@@ -190,12 +189,11 @@ namespace APDoomLauncher
             // txtServer
             // 
             this.txtServer.Location = new System.Drawing.Point(149, 32);
-            this.txtServer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtServer.Margin = new System.Windows.Forms.Padding(2);
             this.txtServer.Name = "txtServer";
             this.txtServer.Size = new System.Drawing.Size(153, 20);
             this.txtServer.TabIndex = 5;
             this.txtServer.Text = "archipelago.gg:";
-            this.txtServer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.triggerStart);
             // 
             // label3
             // 
@@ -220,18 +218,17 @@ namespace APDoomLauncher
             // txtPlayer
             // 
             this.txtPlayer.Location = new System.Drawing.Point(149, 54);
-            this.txtPlayer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtPlayer.Margin = new System.Windows.Forms.Padding(2);
             this.txtPlayer.Name = "txtPlayer";
             this.txtPlayer.Size = new System.Drawing.Size(153, 20);
             this.txtPlayer.TabIndex = 6;
-            this.txtPlayer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.triggerStart);
             // 
             // pictureBox1
             // 
             this.pictureBox1.BackgroundImage = global::APDoomLauncher.Properties.Resources.Title;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Location = new System.Drawing.Point(66, 19);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(369, 195);
             this.pictureBox1.TabIndex = 0;
@@ -260,7 +257,7 @@ namespace APDoomLauncher
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
