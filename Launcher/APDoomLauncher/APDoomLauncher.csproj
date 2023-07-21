@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>APDoomLauncher</RootNamespace>
     <AssemblyName>APDoomLauncher</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>

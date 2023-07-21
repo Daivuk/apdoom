@@ -75,5 +75,13 @@ namespace APDoomLauncher
             txtWidth.Enabled = !chkFullscreen.Checked;
             txtHeight.Enabled = !chkFullscreen.Checked;
         }
+
+        private void triggerStart(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnLaunchDOOM_Click(sender, e);
+            }
+        }
     }
 }
