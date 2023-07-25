@@ -37,6 +37,7 @@ namespace APDoomLauncher
             this.chkFullscreen = new System.Windows.Forms.CheckBox();
             this.btnLaunchDOOM = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cboGame = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.txtCommandLine = new System.Windows.Forms.TextBox();
@@ -49,7 +50,6 @@ namespace APDoomLauncher
             this.txtPlayer = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.cboGame = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -133,6 +133,18 @@ namespace APDoomLauncher
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Game Settings";
+            // 
+            // cboGame
+            // 
+            this.cboGame.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboGame.FormattingEnabled = true;
+            this.cboGame.Items.AddRange(new object[] {
+            "Ultimate DOOM",
+            "DOOM II"});
+            this.cboGame.Location = new System.Drawing.Point(197, 39);
+            this.cboGame.Name = "cboGame";
+            this.cboGame.Size = new System.Drawing.Size(205, 24);
+            this.cboGame.TabIndex = 0;
             // 
             // label8
             // 
@@ -249,19 +261,7 @@ namespace APDoomLauncher
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(147, 17);
             this.label7.TabIndex = 9;
-            this.label7.Text = "APDOOM 0.6.0 (beta)";
-            // 
-            // cboGame
-            // 
-            this.cboGame.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboGame.FormattingEnabled = true;
-            this.cboGame.Items.AddRange(new object[] {
-            "Ultimate DOOM",
-            "DOOM II"});
-            this.cboGame.Location = new System.Drawing.Point(197, 39);
-            this.cboGame.Name = "cboGame";
-            this.cboGame.Size = new System.Drawing.Size(205, 24);
-            this.cboGame.TabIndex = 0;
+            this.label7.Text = "APDOOM 0.6.1 (beta)";
             // 
             // Form1
             // 

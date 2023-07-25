@@ -1,0 +1,14 @@
+Release/APDoomLauncher.exe
+Release/crispy-doom.exe
+Release/crispy-setup.exe
+Release/APCpp.dll
+Release/intl.dll
+Release/libfluidsynth-3.dll
+Release/libglib-2.0-0.dll
+Release/libgthread-2.0-0.dll
+Release/libsndfile-1.dll
+Release/samplerate.dll
+Release/SDL2.dll
+Release/SDL2_mixer.dll
+Release/README.txt
+Release/APDOOM.WAD

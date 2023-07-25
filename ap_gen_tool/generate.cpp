@@ -612,6 +612,7 @@ class ItemDict(TypedDict, total=False): \n\
         fprintf(fout, "class RegionDict(TypedDict, total=False): \n");
         fprintf(fout, "    name: str\n");
         fprintf(fout, "    connects_to_hub: bool\n");
+        fprintf(fout, "    episode: int\n");
         fprintf(fout, "    connections: List[str]\n\n\n");
 
         fprintf(fout, "regions:List[RegionDict] = [\n");
@@ -677,6 +678,7 @@ class ItemDict(TypedDict, total=False): \n\
                     }
                     fprintf(fout, "    {\"name\":\"%s\",\n", region_name.c_str());
                     fprintf(fout, "     \"connects_to_hub\":%s,\n", connects_to_hub ? "True" : "False");
+                    fprintf(fout, "     \"episode\":%i,\n", ep + 1);
                     if (connections.empty())
                     {
                         fprintf(fout, "     \"connections\":[]},\n");
@@ -944,16 +946,14 @@ class LocationDict(TypedDict, total=False): \n\
         fprintf(fout, "from worlds.generic.Rules import set_rule\n\n");
         
         fprintf(fout, "if TYPE_CHECKING:\n");
-        fprintf(fout, "    from . import DOOM1993World\n\n\n");
-
-        fprintf(fout, "def set_rules(doom_1993_world: \"DOOM1993World\"):\n");
-        fprintf(fout, "    player = doom_1993_world.player\n");
-        fprintf(fout, "    world = doom_1993_world.multiworld\n\n");
+        fprintf(fout, "    from . import DOOM1993World\n\n");
 
         const auto& episodes_json = levels_json["episodes"];
         int ep = 0;
         for (const auto& episode_json : episodes_json)
         {
+            fprintf(fout, "\ndef set_episode%i_rules(player, world):\n", ep + 1);
+
             int lvl = 0;
             for (const auto& level_json : episode_json)
             {
@@ -1063,6 +1063,17 @@ class LocationDict(TypedDict, total=False): \n\
                 }
                 ++lvl;
             }
+            ++ep;
+        }
+
+        fprintf(fout, "\ndef set_rules(doom_1993_world: \"DOOM1993World\", included_episodes):\n");
+        fprintf(fout, "    player = doom_1993_world.player\n");
+        fprintf(fout, "    world = doom_1993_world.multiworld\n\n");
+        ep = 0;
+        for (const auto& episode_json : episodes_json)
+        {
+            fprintf(fout, "    if included_episodes[%i]:\n", ep);
+            fprintf(fout, "        set_episode%i_rules(player, world)\n", ep + 1);
             ++ep;
         }
 
