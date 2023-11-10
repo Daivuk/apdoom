@@ -229,14 +229,24 @@ void on_ap_give_item(int doom_type, int ep, int map)
             }
             break;
 
-        case 8: // Backpack
-	        if (!player->backpack)
-	        {
-	            for (int i = 0; i < NUMAMMO; i++)
-		            player->maxammo[i] *= 2;
-	            player->backpack = true;
-	        }
-            break;
+	case 8: // Backpack
+	{
+	for (int i = 0; i < NUMAMMO; i++)
+	{
+		// If we can, upgrade max ammo
+		if (player->backpacks[i] < player->maxbackpacks[i])
+		{
+			player->backpacks[i] += 1;
+			player->maxammo[i] =
+				player->maxammo_initial[i] +
+				(player->maxammo_increment_linear[i]
+					* player->backpacks[i]);
+		}
+		// Either way, give ammo
+		P_GiveAmmo(player, i, 1, false);
+	}
+	break;
+	}
 
         // Weapons
         case 2001:
