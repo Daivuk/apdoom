@@ -85,7 +85,8 @@ typedef struct
     int health;
     int armor_points;
     int armor_type;
-    int backpack; // Has backpack or not
+    int backpacks[AP_NUM_AMMO]; // Backpack levels
+    int maxbackpacks[AP_NUM_AMMO]; // Max backpack levels
     int ready_weapon; // Last weapon held
     int kill_count; // We accumulate globally
     int item_count;
@@ -93,7 +94,10 @@ typedef struct
     int powers[AP_NUM_POWERS];
     int weapon_owned[AP_NUM_WEAPONS];
     int ammo[AP_NUM_AMMO];
-    int max_ammo[AP_NUM_AMMO]; // Could be deduced by checking backpack
+    int max_ammo[AP_NUM_AMMO];
+    int maxammo_initial[AP_NUM_AMMO]; // [ap] initial max ammo values
+    // [ap] how much to increment maxammo per backpack level, linear
+    int maxammo_increment_linear[AP_NUM_AMMO];
 
 } ap_player_state_t;
 

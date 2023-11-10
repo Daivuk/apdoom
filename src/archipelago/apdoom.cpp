@@ -366,7 +366,11 @@ void load_state()
 	json_get_int(json["player"]["health"], ap_state.player_state.health);
 	json_get_int(json["player"]["armor_points"], ap_state.player_state.armor_points);
 	json_get_int(json["player"]["armor_type"], ap_state.player_state.armor_type);
-	json_get_int(json["player"]["backpack"], ap_state.player_state.backpack);
+	for( int i = 0; i < AP_NUM_AMMO; ++i )
+	{
+		json_get_int(json["player"]["backpacks"][i], ap_state.player_state.backpacks[i]);
+		json_get_int(json["player"]["maxbackpacks"][i], ap_state.player_state.maxbackpacks[i]);
+	}
 	json_get_int(json["player"]["ready_weapon"], ap_state.player_state.ready_weapon);
 	json_get_int(json["player"]["kill_count"], ap_state.player_state.kill_count);
 	json_get_int(json["player"]["item_count"], ap_state.player_state.item_count);
@@ -379,15 +383,18 @@ void load_state()
 		json_get_int(json["player"]["ammo"][i], ap_state.player_state.ammo[i]);
 	for (int i = 0; i < AP_NUM_AMMO; ++i)
 		json_get_int(json["player"]["max_ammo"][i], ap_state.player_state.max_ammo[i]);
-
-	if (ap_state.player_state.backpack)
+	for( int i = 0; i < AP_NUM_AMMO; ++i )
 	{
-		ap_state.player_state.max_ammo[0] = 200 * 2;
-		ap_state.player_state.max_ammo[1] = 50 * 2;
-		ap_state.player_state.max_ammo[2] = 300 * 2;
-		ap_state.player_state.max_ammo[3] = 50 * 2;
+		json_get_int(json["player"]["max_ammo_initial"][i], ap_state.player_state.maxammo_initial[i]);
+		json_get_int(json["player"]["max_ammo_increment_linear"][i], ap_state.player_state.maxammo_increment_linear[i]);
 	}
 
+	for( int i = 0; i < AP_NUM_AMMO; ++i )
+	{
+		ap_state.player_state.max_ammo[i] =
+			ap_state.player_state.maxammo_initial[i] +
+			(ap_state.player_state.maxammo_increment_linear[i] * ap_state.player_state.backpacks[i]);
+	}
 
 	// Level states
 	for (int i = 0; i < AP_EPISODE_COUNT; ++i)
@@ -447,7 +454,14 @@ void save_state()
 	json_player["health"] = ap_state.player_state.health;
 	json_player["armor_points"] = ap_state.player_state.armor_points;
 	json_player["armor_type"] = ap_state.player_state.armor_type;
-	json_player["backpack"] = ap_state.player_state.backpack;
+	Json::Value json_backpacks(Json::arrayValue);
+	for (int i = 0; i < AP_NUM_AMMO; ++i)
+		json_backpacks.append(ap_state.player_state.backpacks[i]);
+	json_player["backpacks"] = json_backpacks;
+Json::Value json_maxbackpacks(Json::arrayValue);
+	for (int i = 0; i < AP_NUM_AMMO; ++i)
+		json_maxbackpacks.append(ap_state.player_state.maxbackpacks[i]);
+	json_player["maxbackpacks"] = json_maxbackpacks;
 	json_player["ready_weapon"] = ap_state.player_state.ready_weapon;
 	json_player["kill_count"] = ap_state.player_state.kill_count;
 	json_player["item_count"] = ap_state.player_state.item_count;
@@ -472,6 +486,16 @@ void save_state()
 	for (int i = 0; i < AP_NUM_AMMO; ++i)
 		json_max_ammo.append(ap_state.player_state.max_ammo[i]);
 	json_player["max_ammo"] = json_max_ammo;
+
+	Json::Value json_max_ammo_initial(Json::arrayValue);
+	for (int i = 0; i < AP_NUM_AMMO; ++i)
+		json_max_ammo_initial.append(ap_state.player_state.maxammo_initial[i]);
+	json_player["max_ammo_initial"] = json_max_ammo_initial;
+
+Json::Value json_max_ammo_increment_linear(Json::arrayValue);
+	for (int i = 0; i < AP_NUM_AMMO; ++i)
+		json_max_ammo_increment_linear.append(ap_state.player_state.maxammo_increment_linear[i]);
+	json_player["max_ammo_increment_linear"] = json_max_ammo_increment_linear;
 
 	json["player"] = json_player;
 
