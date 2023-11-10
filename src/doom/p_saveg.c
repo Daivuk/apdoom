@@ -770,8 +770,17 @@ static void saveg_read_player_t(player_t *str)
         str->cards[i] = saveg_read32();
     }
 
-    // boolean backpack;
-    str->backpack = saveg_read32();
+    // int backpacks[NUMAMMO];
+    for (i = 0; i < NUMAMMO; ++i)
+    {
+        str->backpacks[i] = saveg_read32();
+    }
+
+    // int maxbackpacks[NUMAMMO];
+    for (i = 0; i < NUMAMMO; ++i)
+    {
+        str->maxbackpacks[i] = saveg_read32();
+    }
 
     // int frags[MAXPLAYERS];
     for (i=0; i<MAXPLAYERS; ++i)
@@ -801,6 +810,18 @@ static void saveg_read_player_t(player_t *str)
     for (i=0; i<NUMAMMO; ++i)
     {
         str->maxammo[i] = saveg_read32();
+    }
+
+    // int maxammo_initial[NUMAMMO];
+    for (i = 0; i < NUMAMMO; ++i)
+    {
+        str->maxammo_initial[i] = saveg_read32();
+    }
+
+    // int maxammo_increment_linear[NUMAMMO];
+    for (i = 0; i < NUMAMMO; ++i)
+    {
+        str->maxammo_increment_linear[i] = saveg_read32();
     }
 
     // int attackdown;
@@ -901,8 +922,17 @@ static void saveg_write_player_t(player_t *str)
         saveg_write32(str->cards[i]);
     }
 
-    // boolean backpack;
-    saveg_write32(str->backpack);
+    // int backpacks[NUMAMMO];
+    for (i = 0; i < NUMAMMO; ++i)
+    {
+        saveg_write32(str->backpacks[i]);
+    }
+
+    // int maxbackpacks[NUMAMMO];
+    for (i = 0; i < NUMAMMO; ++i)
+    {
+        saveg_write32(str->maxbackpacks[i]);
+    }
 
     // int frags[MAXPLAYERS];
     for (i=0; i<MAXPLAYERS; ++i)
@@ -932,6 +962,18 @@ static void saveg_write_player_t(player_t *str)
     for (i=0; i<NUMAMMO; ++i)
     {
         saveg_write32(str->maxammo[i]);
+    }
+
+    // int maxammo_initial[NUMAMMO];
+    for (i = 0; i < NUMAMMO; ++i)
+    {
+        saveg_write32(str->maxammo_initial[i]);
+    }
+
+    // int maxammo_increment_linear[NUMAMMO];
+    for (i = 0; i < NUMAMMO; ++i)
+    {
+        saveg_write32(str->maxammo_increment_linear[i]);
     }
 
     // int attackdown;

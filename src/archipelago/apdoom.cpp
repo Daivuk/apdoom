@@ -184,6 +184,20 @@ void f_random_items(int);
 void f_episode1(int);
 void f_episode2(int);
 void f_episode3(int);
+void f_separatebackpacks(int);
+void f_maxbackpacks(int);
+void f_maxbackpacks0(int);
+void f_maxbackpacks1(int);
+void f_maxbackpacks2(int);
+void f_maxbackpacks3(int);
+void f_maxammo_initial0(int);
+void f_maxammo_initial1(int);
+void f_maxammo_initial2(int);
+void f_maxammo_initial3(int);
+void f_maxammo_increment_linear0(int);
+void f_maxammo_increment_linear1(int);
+void f_maxammo_increment_linear2(int);
+void f_maxammo_increment_linear3(int);
 void load_state();
 void save_state();
 void APSend(std::string msg);
@@ -215,10 +229,17 @@ int apdoom_init(ap_settings_t* settings)
 	ap_state.player_state.weapon_owned[0] = 1; // Fist
 	ap_state.player_state.weapon_owned[1] = 1; // Pistol
 	ap_state.player_state.ammo[0] = 50; // Clip
-	ap_state.player_state.max_ammo[0] = 200;
-	ap_state.player_state.max_ammo[1] = 50;
-	ap_state.player_state.max_ammo[2] = 300;
-	ap_state.player_state.max_ammo[3] = 50;
+	// Reset backpack state
+	for( int i = 0; i < AP_NUM_AMMO; i++ )
+	{
+		// read from ap state
+		ap_state.player_state.maxammo_initial[i] = ap_state.maxammo_initial[i];
+		ap_state.player_state.maxbackpacks[i] = ap_state.maxbackpacks[i];
+		ap_state.player_state.maxammo_increment_linear[i] = ap_state.maxammo_increment_linear[i];
+		// set max ammo
+		ap_state.player_state.max_ammo[i] = ap_state.player_state.maxammo_initial[i];
+	}
+
 	for (int ep = 0; ep < AP_EPISODE_COUNT; ++ep)
 		for (int map = 0; map < AP_LEVEL_COUNT; ++map)
 			for (int k = 0; k < AP_CHECK_MAX; ++k)
@@ -240,6 +261,20 @@ int apdoom_init(ap_settings_t* settings)
 	AP_RegisterSlotDataIntCallback("episode1", f_episode1);
 	AP_RegisterSlotDataIntCallback("episode2", f_episode2);
 	AP_RegisterSlotDataIntCallback("episode3", f_episode3);
+	AP_RegisterSlotDataIntCallback("separate_backpacks", f_separatebackpacks);
+	AP_RegisterSlotDataIntCallback("num_backpacks", f_maxbackpacks);
+	AP_RegisterSlotDataIntCallback("num_backpacks_clip", f_maxbackpacks0);
+	AP_RegisterSlotDataIntCallback("num_backpacks_shell", f_maxbackpacks1);
+	AP_RegisterSlotDataIntCallback("num_backpacks_cell", f_maxbackpacks2);
+	AP_RegisterSlotDataIntCallback("num_backpacks_misl", f_maxbackpacks3);
+	AP_RegisterSlotDataIntCallback("initial_max_clip", f_maxammo_initial0);
+	AP_RegisterSlotDataIntCallback("initial_max_shell", f_maxammo_initial1);
+	AP_RegisterSlotDataIntCallback("initial_max_cell", f_maxammo_initial2);
+	AP_RegisterSlotDataIntCallback("initial_max_misl", f_maxammo_initial3);
+	AP_RegisterSlotDataIntCallback("backpack_increases_max_clip", f_maxammo_increment_linear0);
+	AP_RegisterSlotDataIntCallback("backpack_increases_max_shell", f_maxammo_increment_linear1);
+	AP_RegisterSlotDataIntCallback("backpack_increases_max_cell", f_maxammo_increment_linear2);
+	AP_RegisterSlotDataIntCallback("backpack_increases_max_misl", f_maxammo_increment_linear3);
     AP_Start();
 
 	// Block DOOM until connection succeeded or failed
@@ -366,7 +401,11 @@ void load_state()
 	json_get_int(json["player"]["health"], ap_state.player_state.health);
 	json_get_int(json["player"]["armor_points"], ap_state.player_state.armor_points);
 	json_get_int(json["player"]["armor_type"], ap_state.player_state.armor_type);
-	json_get_int(json["player"]["backpack"], ap_state.player_state.backpack);
+	for( int i = 0; i < AP_NUM_AMMO; ++i )
+	{
+		json_get_int(json["player"]["backpacks"][i], ap_state.player_state.backpacks[i]);
+		json_get_int(json["player"]["maxbackpacks"][i], ap_state.player_state.maxbackpacks[i]);
+	}
 	json_get_int(json["player"]["ready_weapon"], ap_state.player_state.ready_weapon);
 	json_get_int(json["player"]["kill_count"], ap_state.player_state.kill_count);
 	json_get_int(json["player"]["item_count"], ap_state.player_state.item_count);
@@ -379,15 +418,18 @@ void load_state()
 		json_get_int(json["player"]["ammo"][i], ap_state.player_state.ammo[i]);
 	for (int i = 0; i < AP_NUM_AMMO; ++i)
 		json_get_int(json["player"]["max_ammo"][i], ap_state.player_state.max_ammo[i]);
-
-	if (ap_state.player_state.backpack)
+	for( int i = 0; i < AP_NUM_AMMO; ++i )
 	{
-		ap_state.player_state.max_ammo[0] = 200 * 2;
-		ap_state.player_state.max_ammo[1] = 50 * 2;
-		ap_state.player_state.max_ammo[2] = 300 * 2;
-		ap_state.player_state.max_ammo[3] = 50 * 2;
+		json_get_int(json["player"]["max_ammo_initial"][i], ap_state.player_state.maxammo_initial[i]);
+		json_get_int(json["player"]["max_ammo_increment_linear"][i], ap_state.player_state.maxammo_increment_linear[i]);
 	}
 
+	for( int i = 0; i < AP_NUM_AMMO; ++i )
+	{
+		ap_state.player_state.max_ammo[i] =
+			ap_state.player_state.maxammo_initial[i] +
+			(ap_state.player_state.maxammo_increment_linear[i] * ap_state.player_state.backpacks[i]);
+	}
 
 	// Level states
 	for (int i = 0; i < AP_EPISODE_COUNT; ++i)
@@ -447,7 +489,14 @@ void save_state()
 	json_player["health"] = ap_state.player_state.health;
 	json_player["armor_points"] = ap_state.player_state.armor_points;
 	json_player["armor_type"] = ap_state.player_state.armor_type;
-	json_player["backpack"] = ap_state.player_state.backpack;
+	Json::Value json_backpacks(Json::arrayValue);
+	for (int i = 0; i < AP_NUM_AMMO; ++i)
+		json_backpacks.append(ap_state.player_state.backpacks[i]);
+	json_player["backpacks"] = json_backpacks;
+Json::Value json_maxbackpacks(Json::arrayValue);
+	for (int i = 0; i < AP_NUM_AMMO; ++i)
+		json_maxbackpacks.append(ap_state.player_state.maxbackpacks[i]);
+	json_player["maxbackpacks"] = json_maxbackpacks;
 	json_player["ready_weapon"] = ap_state.player_state.ready_weapon;
 	json_player["kill_count"] = ap_state.player_state.kill_count;
 	json_player["item_count"] = ap_state.player_state.item_count;
@@ -472,6 +521,16 @@ void save_state()
 	for (int i = 0; i < AP_NUM_AMMO; ++i)
 		json_max_ammo.append(ap_state.player_state.max_ammo[i]);
 	json_player["max_ammo"] = json_max_ammo;
+
+	Json::Value json_max_ammo_initial(Json::arrayValue);
+	for (int i = 0; i < AP_NUM_AMMO; ++i)
+		json_max_ammo_initial.append(ap_state.player_state.maxammo_initial[i]);
+	json_player["max_ammo_initial"] = json_max_ammo_initial;
+
+Json::Value json_max_ammo_increment_linear(Json::arrayValue);
+	for (int i = 0; i < AP_NUM_AMMO; ++i)
+		json_max_ammo_increment_linear.append(ap_state.player_state.maxammo_increment_linear[i]);
+	json_player["max_ammo_increment_linear"] = json_max_ammo_increment_linear;
 
 	json["player"] = json_player;
 
@@ -570,12 +629,19 @@ void f_itemrecv(int64_t item_id, bool notify_player)
 
 		// Backpack
 		case 8:
-			ap_state.player_state.backpack = 1;
-			ap_state.player_state.max_ammo[0] = 200 * 2;
-			ap_state.player_state.max_ammo[1] = 50 * 2;
-			ap_state.player_state.max_ammo[2] = 300 * 2;
-			ap_state.player_state.max_ammo[3] = 50 * 2;
-            break;
+			for (int i = 0; i < AP_NUM_AMMO; i++)
+			{
+				// If we can, upgrade max ammo
+				if (ap_state.player_state.backpacks[i] < ap_state.player_state.maxbackpacks[i])
+				{
+								ap_state.player_state.backpacks[i] += 1;
+								ap_state.player_state.max_ammo[i] =
+										ap_state.player_state.maxammo_initial[i] +
+										(ap_state.player_state.maxammo_increment_linear[i] *
+											ap_state.player_state.backpacks[i]);
+				}
+			}
+			break;
 
 		// Is it a weapon?
         case 2001:
@@ -665,6 +731,78 @@ void f_episode3(int ep)
 	ap_state.episodes[2] = ep;
 }
 
+void f_separatebackpacks(int value)
+{
+	ap_state.separate_backpacks = value;
+}
+
+void f_maxbackpacks(int value)
+{
+	ap_state.maxbackpacks[0] = value;
+	ap_state.maxbackpacks[1] = value;
+	ap_state.maxbackpacks[2] = value;
+	ap_state.maxbackpacks[3] = value;
+}
+
+void f_maxbackpacks0(int value)
+{
+	ap_state.maxbackpacks[0] = value;
+}
+
+void f_maxbackpacks1(int value)
+{
+	ap_state.maxbackpacks[1] = value;
+}
+
+void f_maxbackpacks2(int value)
+{
+	ap_state.maxbackpacks[2] = value;
+}
+
+void f_maxbackpacks3(int value)
+{
+	ap_state.maxbackpacks[3] = value;
+}
+
+void f_maxammo_initial0(int value)
+{
+	ap_state.maxammo_initial[0] = value;
+}
+
+void f_maxammo_initial1(int value)
+{
+	ap_state.maxammo_initial[1] = value;
+}
+
+void f_maxammo_initial2(int value)
+{
+	ap_state.maxammo_initial[2] = value;
+}
+
+void f_maxammo_initial3(int value)
+{
+	ap_state.maxammo_initial[3] = value;
+}
+
+void f_maxammo_increment_linear0(int value)
+{
+	ap_state.maxammo_increment_linear[0] = value;
+}
+
+void f_maxammo_increment_linear1(int value)
+{
+	ap_state.maxammo_increment_linear[1] = value;
+}
+
+void f_maxammo_increment_linear2(int value)
+{
+	ap_state.maxammo_increment_linear[2] = value;
+}
+
+void f_maxammo_increment_linear3(int value)
+{
+	ap_state.maxammo_increment_linear[3] = value;
+}
 
 const char* apdoom_get_seed()
 {
