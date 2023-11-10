@@ -113,6 +113,10 @@ typedef struct
     int random_items;
     int death_link;
     int episodes[3];
+    int separate_backpacks;
+    int maxbackpacks[AP_NUM_AMMO];
+    int maxammo_initial[AP_NUM_AMMO];
+    int maxammo_increment_linear[AP_NUM_AMMO];
     int victory;
     
 } ap_state_t;

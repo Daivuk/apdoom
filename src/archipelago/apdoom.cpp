@@ -184,6 +184,20 @@ void f_random_items(int);
 void f_episode1(int);
 void f_episode2(int);
 void f_episode3(int);
+void f_separatebackpacks(int);
+void f_maxbackpacks(int);
+void f_maxbackpacks0(int);
+void f_maxbackpacks1(int);
+void f_maxbackpacks2(int);
+void f_maxbackpacks3(int);
+void f_maxammo_initial0(int);
+void f_maxammo_initial1(int);
+void f_maxammo_initial2(int);
+void f_maxammo_initial3(int);
+void f_maxammo_increment_linear0(int);
+void f_maxammo_increment_linear1(int);
+void f_maxammo_increment_linear2(int);
+void f_maxammo_increment_linear3(int);
 void load_state();
 void save_state();
 void APSend(std::string msg);
@@ -216,18 +230,14 @@ int apdoom_init(ap_settings_t* settings)
 	ap_state.player_state.weapon_owned[1] = 1; // Pistol
 	ap_state.player_state.ammo[0] = 50; // Clip
 	// Reset backpack state
-	ap_state.player_state.maxammo_initial[0] = 200;
-	ap_state.player_state.maxammo_initial[1] = 50;
-	ap_state.player_state.maxammo_initial[2] = 300;
-	ap_state.player_state.maxammo_initial[3] = 50;
 	for( int i = 0; i < AP_NUM_AMMO; i++ )
 	{
+		// read from ap state
+		ap_state.player_state.maxammo_initial[i] = ap_state.maxammo_initial[i];
+		ap_state.player_state.maxbackpacks[i] = ap_state.maxbackpacks[i];
+		ap_state.player_state.maxammo_increment_linear[i] = ap_state.maxammo_increment_linear[i];
+		// set max ammo
 		ap_state.player_state.max_ammo[i] = ap_state.player_state.maxammo_initial[i];
-		// Default number of backpacks is 1
-		ap_state.player_state.maxbackpacks[i] = 1;
-		// Default increment is to double it
-		ap_state.player_state.maxammo_increment_linear[0] = ap_state.player_state.maxammo_initial[0];
-		// The result is that you can pick up at most one backpack, which doubles your ammo
 	}
 
 	for (int ep = 0; ep < AP_EPISODE_COUNT; ++ep)
@@ -251,6 +261,20 @@ int apdoom_init(ap_settings_t* settings)
 	AP_RegisterSlotDataIntCallback("episode1", f_episode1);
 	AP_RegisterSlotDataIntCallback("episode2", f_episode2);
 	AP_RegisterSlotDataIntCallback("episode3", f_episode3);
+	AP_RegisterSlotDataIntCallback("separate_backpacks", f_separatebackpacks);
+	AP_RegisterSlotDataIntCallback("num_backpacks", f_maxbackpacks);
+	AP_RegisterSlotDataIntCallback("num_backpacks_clip", f_maxbackpacks0);
+	AP_RegisterSlotDataIntCallback("num_backpacks_shell", f_maxbackpacks1);
+	AP_RegisterSlotDataIntCallback("num_backpacks_cell", f_maxbackpacks2);
+	AP_RegisterSlotDataIntCallback("num_backpacks_misl", f_maxbackpacks3);
+	AP_RegisterSlotDataIntCallback("initial_max_clip", f_maxammo_initial0);
+	AP_RegisterSlotDataIntCallback("initial_max_shell", f_maxammo_initial1);
+	AP_RegisterSlotDataIntCallback("initial_max_cell", f_maxammo_initial2);
+	AP_RegisterSlotDataIntCallback("initial_max_misl", f_maxammo_initial3);
+	AP_RegisterSlotDataIntCallback("backpack_increases_max_clip", f_maxammo_increment_linear0);
+	AP_RegisterSlotDataIntCallback("backpack_increases_max_shell", f_maxammo_increment_linear1);
+	AP_RegisterSlotDataIntCallback("backpack_increases_max_cell", f_maxammo_increment_linear2);
+	AP_RegisterSlotDataIntCallback("backpack_increases_max_misl", f_maxammo_increment_linear3);
     AP_Start();
 
 	// Block DOOM until connection succeeded or failed
@@ -707,6 +731,78 @@ void f_episode3(int ep)
 	ap_state.episodes[2] = ep;
 }
 
+void f_separatebackpacks(int value)
+{
+	ap_state.separate_backpacks = value;
+}
+
+void f_maxbackpacks(int value)
+{
+	ap_state.maxbackpacks[0] = value;
+	ap_state.maxbackpacks[1] = value;
+	ap_state.maxbackpacks[2] = value;
+	ap_state.maxbackpacks[3] = value;
+}
+
+void f_maxbackpacks0(int value)
+{
+	ap_state.maxbackpacks[0] = value;
+}
+
+void f_maxbackpacks1(int value)
+{
+	ap_state.maxbackpacks[1] = value;
+}
+
+void f_maxbackpacks2(int value)
+{
+	ap_state.maxbackpacks[2] = value;
+}
+
+void f_maxbackpacks3(int value)
+{
+	ap_state.maxbackpacks[3] = value;
+}
+
+void f_maxammo_initial0(int value)
+{
+	ap_state.maxammo_initial[0] = value;
+}
+
+void f_maxammo_initial1(int value)
+{
+	ap_state.maxammo_initial[1] = value;
+}
+
+void f_maxammo_initial2(int value)
+{
+	ap_state.maxammo_initial[2] = value;
+}
+
+void f_maxammo_initial3(int value)
+{
+	ap_state.maxammo_initial[3] = value;
+}
+
+void f_maxammo_increment_linear0(int value)
+{
+	ap_state.maxammo_increment_linear[0] = value;
+}
+
+void f_maxammo_increment_linear1(int value)
+{
+	ap_state.maxammo_increment_linear[1] = value;
+}
+
+void f_maxammo_increment_linear2(int value)
+{
+	ap_state.maxammo_increment_linear[2] = value;
+}
+
+void f_maxammo_increment_linear3(int value)
+{
+	ap_state.maxammo_increment_linear[3] = value;
+}
 
 const char* apdoom_get_seed()
 {
