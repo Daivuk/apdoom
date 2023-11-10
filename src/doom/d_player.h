@@ -104,7 +104,8 @@ typedef struct player_s
     // Power ups. invinc and invis are tic counters.
     int			powers[NUMPOWERS + 3]; // [crispy] showfps and mapcoords are now "powers"
     boolean		cards[NUMCARDS];
-    boolean		backpack;
+    int backpacks[NUMAMMO]; // [ap] current number of backpacks for each ammo type
+    int maxbackpacks[NUMAMMO]; // [ap] max number of backpacks for each ammo type
     
     // Frags, kills of other players.
     int			frags[MAXPLAYERS];
@@ -116,6 +117,9 @@ typedef struct player_s
     int                 weaponowned[NUMWEAPONS];
     int			ammo[NUMAMMO];
     int			maxammo[NUMAMMO];
+    int maxammo_initial[NUMAMMO]; // [ap] initial max ammo values
+    // [ap] how much to increment maxammo per backpack level, linear
+    int maxammo_increment_linear[NUMAMMO];
 
     // True if button down last tic.
     int			attackdown;
