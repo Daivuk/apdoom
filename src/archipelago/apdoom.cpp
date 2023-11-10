@@ -215,10 +215,21 @@ int apdoom_init(ap_settings_t* settings)
 	ap_state.player_state.weapon_owned[0] = 1; // Fist
 	ap_state.player_state.weapon_owned[1] = 1; // Pistol
 	ap_state.player_state.ammo[0] = 50; // Clip
-	ap_state.player_state.max_ammo[0] = 200;
-	ap_state.player_state.max_ammo[1] = 50;
-	ap_state.player_state.max_ammo[2] = 300;
-	ap_state.player_state.max_ammo[3] = 50;
+	// Reset backpack state
+	ap_state.player_state.maxammo_initial[0] = 200;
+	ap_state.player_state.maxammo_initial[1] = 50;
+	ap_state.player_state.maxammo_initial[2] = 300;
+	ap_state.player_state.maxammo_initial[3] = 50;
+	for( int i = 0; i < AP_NUM_AMMO; i++ )
+	{
+		ap_state.player_state.max_ammo[i] = ap_state.player_state.maxammo_initial[i];
+		// Default number of backpacks is 1
+		ap_state.player_state.maxbackpacks[i] = 1;
+		// Default increment is to double it
+		ap_state.player_state.maxammo_increment_linear[0] = ap_state.player_state.maxammo_initial[0];
+		// The result is that you can pick up at most one backpack, which doubles your ammo
+	}
+
 	for (int ep = 0; ep < AP_EPISODE_COUNT; ++ep)
 		for (int map = 0; map < AP_LEVEL_COUNT; ++map)
 			for (int k = 0; k < AP_CHECK_MAX; ++k)
