@@ -641,20 +641,21 @@ P_TouchSpecialThing
 	break;
 	
       case SPR_BPAK:
-        for (i=0 ; i<NUMAMMO ; i++)
-        {
-					// If we can, upgrade max ammo
-          if( player->backpacks[i] < player->maxbackpacks[i] )
-					{
-            player->backpacks[i] += 1;
-            player->maxammo[i] = player->maxammo_initial[i] +
-              (player->maxammo_increment_linear[i] * player->backpacks[i]);
-          }
-					// Either way, give ammo
-          P_GiveAmmo (player, i, 1, false);
-				}
-        player->message = DEH_String(GOTBACKPACK);
-        break;
+	for (i=0 ; i<NUMAMMO ; i++)
+	{
+		// If we can, upgrade max ammo
+		if( player->backpacks[i] < player->maxbackpacks[i] )
+		{
+			player->backpacks[i] += 1;
+			player->maxammo[i] = player->maxammo_initial[i] +
+				(player->maxammo_increment_linear[i]
+					* player->backpacks[i]);
+		}
+		// Either way, give ammo
+		P_GiveAmmo (player, i, 1, false);
+	}
+	player->message = DEH_String(GOTBACKPACK);
+	break;
 	
 	// weapons
 	// [NS] Give half ammo for all dropped weapons.
