@@ -707,22 +707,12 @@ static void GiveBackpack (boolean give)
 {
 	int i;
 
-	if (give && !plyr->backpack)
+	for (i = 0; i < NUMAMMO; i++)
 	{
-		for (i = 0; i < NUMAMMO; i++)
-		{
-			plyr->maxammo[i] *= 2;
-		}
-		plyr->backpack = true;
-	}
-	else
-	if (!give && plyr->backpack)
-	{
-		for (i = 0; i < NUMAMMO; i++)
-		{
-			plyr->maxammo[i] /= 2;
-		}
-		plyr->backpack = false;
+		plyr->backpacks[i] = give ? plyr->maxbackpacks[i] : 0;
+		plyr->maxammo[i] = plyr->maxammo_initial[i] +
+			(plyr->maxammo_increment_linear[i]
+				* plyr->backpacks[i]);
 	}
 }
 
