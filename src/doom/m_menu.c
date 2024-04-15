@@ -1307,6 +1307,8 @@ void draw_apdoom_version(void)
 }
 
 
+extern int open_world;
+
 //
 // M_DrawMainMenu
 //
@@ -1319,8 +1321,14 @@ void M_DrawMainMenu(void)
         V_DrawPatchDirect(94, 2,
                           W_CacheLumpName(DEH_String("M_DOOM2"), PU_CACHE));
     else
-        V_DrawPatchDirect(94, 2,
-                          W_CacheLumpName(DEH_String("M_DOOM"), PU_CACHE));
+    {
+        if (!open_world)
+            V_DrawPatchDirect(94, 2,
+                              W_CacheLumpName(DEH_String("M_DOOM"), PU_CACHE));
+        else
+            V_DrawPatchDirect(94, 2,
+                              W_CacheLumpName(DEH_String("M_DOOMOW"), PU_CACHE));
+    }
 
     draw_apdoom_version();
 }
@@ -1338,8 +1346,14 @@ void M_InGameMenuDraw(void)
         V_DrawPatchDirect(94, 2,
                           W_CacheLumpName(DEH_String("M_DOOM2"), PU_CACHE));
     else
-        V_DrawPatchDirect(94, 2,
-                          W_CacheLumpName(DEH_String("M_DOOM"), PU_CACHE));
+    {
+        if (!open_world)
+            V_DrawPatchDirect(94, 2,
+                              W_CacheLumpName(DEH_String("M_DOOM"), PU_CACHE));
+        else
+            V_DrawPatchDirect(94, 2,
+                              W_CacheLumpName(DEH_String("M_DOOMOW"), PU_CACHE));
+    }
 
     draw_apdoom_version();
 }
