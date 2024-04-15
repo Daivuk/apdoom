@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="launcher_icon.ico" />
+    <None Include="Title4.png" />
     <None Include="Title3.png" />
     <None Include="Title2.png" />
   </ItemGroup>

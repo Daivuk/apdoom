@@ -59,6 +59,7 @@ namespace APDoomLauncher
                 case 0: command_line += " -game doom"; break;
                 case 1: command_line += " -game doom2"; break;
                 case 2: command_line += " -game heretic"; break;
+                case 3: command_line += " -game doom_open_world"; break;
             }
 
             if (chkFullscreen.Checked)
@@ -85,6 +86,7 @@ namespace APDoomLauncher
             {
                 case 0:
                 case 1:
+                case 3:
                     System.Diagnostics.Process.Start("crispy-apdoom.exe", command_line);
                     break;
                 case 2:
@@ -118,12 +120,14 @@ namespace APDoomLauncher
             pictureBox1.Visible = false;
             pictureBox2.Visible = false;
             pictureBox3.Visible = false;
+            pictureBox4.Visible = false;
 
             switch (cboGame.SelectedIndex)
             {
                 case 0: pictureBox1.Visible = true; break;
                 case 1: pictureBox2.Visible = true; break;
                 case 2: pictureBox3.Visible = true; break;
+                case 3: pictureBox4.Visible = true; break;
             }
         }
 
@@ -132,12 +136,14 @@ namespace APDoomLauncher
             pictureBox1.Visible = false;
             pictureBox2.Visible = false;
             pictureBox3.Visible = false;
+            pictureBox4.Visible = false;
 
             switch (cboGame.SelectedIndex)
             {
                 case 0: pictureBox1.Visible = true; break;
                 case 1: pictureBox2.Visible = true; break;
                 case 2: pictureBox3.Visible = true; break;
+                case 3: pictureBox4.Visible = true; break;
             }
         }
 

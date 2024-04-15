@@ -49,11 +49,13 @@ namespace APDoomLauncher
             this.label4 = new System.Windows.Forms.Label();
             this.txtPlayer = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -147,7 +149,8 @@ namespace APDoomLauncher
             this.cboGame.Items.AddRange(new object[] {
             "Ultimate DOOM",
             "DOOM II",
-            "Heretic"});
+            "Heretic",
+            "DOOM Open World"});
             this.cboGame.Location = new System.Drawing.Point(197, 39);
             this.cboGame.Name = "cboGame";
             this.cboGame.Size = new System.Drawing.Size(206, 24);
@@ -259,6 +262,17 @@ namespace APDoomLauncher
             this.label7.TabIndex = 9;
             this.label7.Text = "APDOOM 1.0.4";
             // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackgroundImage = global::APDoomLauncher.Properties.Resources.Title4;
+            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox4.Location = new System.Drawing.Point(88, 23);
+            this.pictureBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(492, 240);
+            this.pictureBox4.TabIndex = 12;
+            this.pictureBox4.TabStop = false;
+            // 
             // pictureBox3
             // 
             this.pictureBox3.BackgroundImage = global::APDoomLauncher.Properties.Resources.Title3;
@@ -299,6 +313,7 @@ namespace APDoomLauncher
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(671, 759);
+            this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label7);
@@ -318,6 +333,7 @@ namespace APDoomLauncher
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -350,6 +366,7 @@ namespace APDoomLauncher
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Button btnOverrideSettings;
+        private System.Windows.Forms.PictureBox pictureBox4;
     }
 }
 

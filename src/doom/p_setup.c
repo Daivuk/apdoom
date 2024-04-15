@@ -47,9 +47,12 @@
 
 #include "apdoom_c_def.h"
 #include "apdoom2_c_def.h"
+#include "apdoom_open_world_c_def.h"
 #include "apdoom.h"
 
 void	P_SpawnMapThing (mapthing_t*	mthing);
+
+extern int open_world;
 
 
 //
@@ -1147,7 +1150,8 @@ void P_LoadThings (int lump)
     auto type_before = spawnthing.type;
 
         // Replace AP locations with AP item
-        if ((gamemode != commercial && is_doom_type_ap_location(spawnthing.type)) ||
+        if ((gamemode != commercial && !open_world && is_doom_type_ap_location(spawnthing.type)) ||
+            (gamemode != commercial && open_world && is_doom_open_world_type_ap_location(spawnthing.type)) ||
             (gamemode == commercial && is_doom2_type_ap_location(spawnthing.type)))
         {
             // Validate that the location index matches what we have in our data. If it doesn't then the WAD is not the same, we can't continue

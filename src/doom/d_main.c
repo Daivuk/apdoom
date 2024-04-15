@@ -1705,6 +1705,9 @@ static void G_CheckDemoStatusAtExit (void)
 
 static const char *const loadparms[] = {"-file", "-merge", NULL};
 
+
+int open_world = 0;
+
 //
 // D_DoomMain
 //
@@ -1804,6 +1807,11 @@ void D_DoomMain (void)
 	        I_Error("Make sure to launch the game using APDoomLauncher.exe.\nThe '-game' parameter requires an argument.");
         const char* game_name = myargv[game_arg_id + 1];
         if (strcmp(game_name, "doom") == 0) mission = doom;
+        if (strcmp(game_name, "doom_open_world") == 0)
+        {
+            mission = doom;
+            open_world = 1;
+        }
         if (strcmp(game_name, "doom2") == 0) mission = doom2;
     }
 
@@ -2011,6 +2019,7 @@ void D_DoomMain (void)
 	        I_Error("Make sure to launch the game using APDoomLauncher.exe.\nThe '-game' parameter requires an argument.");
         const char* game_name = myargv[game_arg_id + 1];
         if (strcmp(game_name, "doom") == 0) iwad_mask = 1 << doom; // Remove doom2
+        if (strcmp(game_name, "doom_open_world") == 0) iwad_mask = 1 << doom; // Remove doom2
         if (strcmp(game_name, "doom2") == 0) iwad_mask = 1 << doom2; // Remove doom
     }
     iwadfile = D_FindIWAD(iwad_mask, &gamemission);
@@ -2696,10 +2705,15 @@ void D_DoomMain (void)
     
     // Initialize AP
     if (mission == doom)
-        ap_settings.game = "DOOM 1993";
+    {
+        if (open_world)
+            ap_settings.game = "DOOM Open World";
+        else
+            ap_settings.game = "DOOM 1993";
+    }
     else if (mission == doom2)
         ap_settings.game = "DOOM II";
-
+    
     char* player_name = myargv[applayer_arg_id + 1];
     if (player_is_hex)
     {

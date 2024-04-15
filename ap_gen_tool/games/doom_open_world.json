@@ -1,0 +1,121 @@
+{
+    "name": "DOOM Open World",
+    "world": "doom_open_world",
+    "codename": "doom_open_world",
+    "classname": "DOOMOpenWorld",
+    "wad": "DOOM.WAD",
+    "item_ids": 480000,
+    "loc_ids": 481000,
+    "check_sanity": false,
+    "map_names": [
+        [
+            "Hangar (E1M1)",
+            "Nuclear Plant (E1M2)",
+            "Toxin Refinery (E1M3)",
+            "Command Control (E1M4)",
+            "Phobos Lab (E1M5)",
+            "Central Processing (E1M6)",
+            "Computer Station (E1M7)",
+            "Phobos Anomaly (E1M8)",
+            "Military Base (E1M9)"
+        ],
+        [
+            "Deimos Anomaly (E2M1)",
+            "Containment Area (E2M2)",
+            "Refinery (E2M3)",
+            "Deimos Lab (E2M4)",
+            "Command Center (E2M5)",
+            "Halls of the Damned (E2M6)",
+            "Spawning Vats (E2M7)",
+            "Tower of Babel (E2M8)",
+            "Fortress of Mystery (E2M9)"
+        ],
+        [
+            "Hell Keep (E3M1)",
+            "Slough of Despair (E3M2)",
+            "Pandemonium (E3M3)",
+            "House of Pain (E3M4)",
+            "Unholy Cathedral (E3M5)",
+            "Mt. Erebus (E3M6)",
+            "Limbo (E3M7)",
+            "Dis (E3M8)",
+            "Warrens (E3M9)"
+        ],
+        [
+            "Hell Beneath (E4M1)",
+            "Perfect Hatred (E4M2)",
+            "Sever the Wicked (E4M3)",
+            "Unruly Evil (E4M4)",
+            "They Will Repent (E4M5)",
+            "Against Thee Wickedly (E4M6)",
+            "And Hell Followed (E4M7)",
+            "Unto the Cruel (E4M8)",
+            "Fear (E4M9)"
+        ]
+    ],
+    "location_doom_types": {
+        "5": "Blue keycard",
+        "40": "Blue skull key",
+        "6": "Yellow keycard",
+        "39": "Yellow skull key",
+        "13": "Red keycard",
+        "38": "Red skull key",
+        "2018": "Armor",
+        "8": "Backpack",
+        "2019": "Mega Armor",
+        "2023": "Berserk",
+        "2022": "Invulnerability",
+        "2024": "Partial invisibility",
+        "2013": "Supercharge",
+        "2006": "BFG9000",
+        "2002": "Chaingun",
+        "2005": "Chainsaw",
+        "2004": "Plasma gun",
+        "2003": "Rocket launcher",
+        "2001": "Shotgun",
+        "2026": "Computer area map"
+    },
+    "extra_connection_requirements": [
+        {"doom_type": -1, "name": "deathlogic", "sprite": "STFDEAD0" },
+        {"doom_type": -2, "name": "pro", "sprite": "STFGOD0" }
+    ],
+    "progressions": [
+        {"doom_type": 2001, "name": "Shotgun", "group": "Weapons", "sprite": "SHOTA0"},
+        {"doom_type": 2003, "name": "Rocket launcher", "group": "Weapons", "sprite": "LAUNA0"},
+        {"doom_type": 2004, "name": "Plasma gun", "group": "Weapons", "sprite": "PLASA0"},
+        {"doom_type": 2005, "name": "Chainsaw", "group": "Weapons", "sprite": "CSAWA0"},
+        {"doom_type": 2002, "name": "Chaingun", "group": "Weapons", "sprite": "MGUNA0"},
+        {"doom_type": 2006, "name": "BFG9000", "group": "Weapons", "sprite": "BFUGA0"},
+        {"doom_type": 8, "name": "Backpack", "group": "", "sprite": "BPAKA0"}
+    ],
+    "fillers": [
+        {"doom_type": 2018, "name": "Armor", "group": "Powerups", "sprite": "ARM1A0"},
+        {"doom_type": 2019, "name": "Mega Armor", "group": "Powerups", "sprite": "ARM2A0"},
+        {"doom_type": 2023, "name": "Berserk", "group": "Powerups", "sprite": "PSTRA0"},
+        {"doom_type": 2022, "name": "Invulnerability", "group": "Powerups", "sprite": "PINVA0"},
+        {"doom_type": 2024, "name": "Partial invisibility", "group": "Powerups", "sprite": "PINSA0"},
+        {"doom_type": 2013, "name": "Supercharge", "group": "Powerups", "sprite": "SOULA0"},
+        {"doom_type": 2012, "name": "Medikit", "group": "", "sprite": "MEDIA0"},
+        {"doom_type": 2048, "name": "Box of bullets", "group": "Ammos", "sprite": "AMMOA0"},
+        {"doom_type": 2046, "name": "Box of rockets", "group": "Ammos", "sprite": "BROKA0"},
+        {"doom_type": 2049, "name": "Box of shotgun shells", "group": "Ammos", "sprite": "SBOXA0"},
+        {"doom_type": 17, "name": "Energy cell pack", "group": "Ammos", "sprite": "CELPA0"}
+    ],
+    "unique_progressions": [
+    ],
+    "unique_fillers": [
+        {"doom_type": 2026, "name": "Computer area map", "group": "Computer area maps", "sprite": "PMAPA0"}
+    ],
+    "keys": [
+        {"doom_type": 5, "name": "Blue keycard", "group": "Keys", "key": 0, "use_skull": false, "region_name": "Blue", "color": [0, 0, 1], "sprite": "BKEYB0"},
+        {"doom_type": 40, "name": "Blue skull key", "group": "Keys", "key": 0, "use_skull": true, "region_name": "Blue", "color": [0, 0, 1], "sprite": "BSKUB0"},
+        {"doom_type": 6, "name": "Yellow keycard", "group": "Keys", "key": 1, "use_skull": false, "region_name": "Yellow", "color": [1, 1, 0], "sprite": "YKEYB0"},
+        {"doom_type": 39, "name": "Yellow skull key", "group": "Keys", "key": 1, "use_skull": true, "region_name": "Yellow", "color": [1, 1, 0], "sprite": "YSKUB0"},
+        {"doom_type": 13, "name": "Red keycard", "group": "Keys", "key": 2, "use_skull": false, "region_name": "Red", "color": [1, 0, 0], "sprite": "RKEYB0"},
+        {"doom_type": 38, "name": "Red skull key", "group": "Keys", "key": 2, "use_skull": true, "region_name": "Red", "color": [1, 0, 0], "sprite": "RSKUB0"}
+    ],
+    "loc_remap": {
+    },
+    "item_remap": {
+    }
+}

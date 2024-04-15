@@ -30,6 +30,7 @@
 #include "apdoom_def.h"
 #include "apdoom2_def.h"
 #include "apheretic_def.h"
+#include "apdoom_open_world_def.h"
 #include "Archipelago.h"
 #include <json/json.h>
 #include <memory.h>
@@ -167,7 +168,8 @@ enum class ap_game_t
 {
 	doom,
 	doom2,
-	heretic
+	heretic,
+	doom_open_world
 };
 
 
@@ -221,6 +223,7 @@ static int get_original_music_for_level(int ep, int map)
 	switch (ap_game)
 	{
 		case ap_game_t::doom:
+		case ap_game_t::doom_open_world:
 		{
 			int ep4_music[] = {
 				// Song - Who? - Where?
@@ -261,6 +264,7 @@ static std::vector<std::vector<ap_level_info_t>>& get_level_info_table()
 		case ap_game_t::doom: return ap_doom_level_infos;
 		case ap_game_t::doom2: return ap_doom2_level_infos;
 		case ap_game_t::heretic: return ap_heretic_level_infos;
+		case ap_game_t::doom_open_world: return ap_doom_open_world_level_infos;
 	}
 }
 
@@ -296,6 +300,7 @@ static const std::map<int64_t, ap_item_t>& get_item_type_table()
 		case ap_game_t::doom: return ap_doom_item_table;
 		case ap_game_t::doom2: return ap_doom2_item_table;
 		case ap_game_t::heretic: return ap_heretic_item_table;
+		case ap_game_t::doom_open_world: return ap_doom_open_world_item_table;
 	}
 }
 
@@ -307,6 +312,7 @@ static const std::map<int /* ep */, std::map<int /* map */, std::map<int /* inde
 		case ap_game_t::doom: return ap_doom_location_table;
 		case ap_game_t::doom2: return ap_doom2_location_table;
 		case ap_game_t::heretic: return ap_heretic_location_table;
+		case ap_game_t::doom_open_world: return ap_doom_open_world_location_table;
 	}
 }
 
@@ -353,6 +359,7 @@ const int* get_max_ammos()
 		case ap_game_t::doom: return doom_max_ammos;
 		case ap_game_t::doom2: return doom2_max_ammos;
 		case ap_game_t::heretic: return heretic_max_ammos;
+		case ap_game_t::doom_open_world: return doom_max_ammos;
 	}
 }
 
@@ -396,6 +403,14 @@ int apdoom_init(ap_settings_t* settings)
 		ap_ammo_count = 6;
 		ap_powerup_count = 9;
 		ap_inventory_count = 14;
+	}
+	else if (strcmp(settings->game, "DOOM Open World") == 0)
+	{
+		ap_game = ap_game_t::doom_open_world;
+		ap_weapon_count = 9;
+		ap_ammo_count = 4;
+		ap_powerup_count = 6;
+		ap_inventory_count = 0;
 	}
 	else
 	{
@@ -638,6 +653,9 @@ int apdoom_init(ap_settings_t* settings)
 							break;
 						case ap_game_t::heretic:
 							printf("  E%iM%i = E%iM%i\n", ep + 1, map + 1, (mus / max_map_count) + 1, (mus % max_map_count) + 1);
+							break;
+						case ap_game_t::doom_open_world:
+							printf("  E%iM%i = E%iM%i\n", ep + 1, map + 1, ((mus - 1) / max_map_count) + 1, ((mus - 1) % max_map_count) + 1);
 							break;
 					}
 				}
@@ -1067,6 +1085,7 @@ const std::map<int, int>& get_keys_map()
 		case ap_game_t::doom: return doom_keys_map;
 		case ap_game_t::doom2: return doom2_keys_map;
 		case ap_game_t::heretic: return heretic_keys_map;
+		case ap_game_t::doom_open_world: return doom_keys_map;
 	}
 }
 
@@ -1078,6 +1097,7 @@ int get_map_doom_type()
 		case ap_game_t::doom: return 2026;
 		case ap_game_t::doom2: return 2026;
 		case ap_game_t::heretic: return 35;
+		case ap_game_t::doom_open_world: return 2026;
 	}
 }
 
@@ -1094,6 +1114,7 @@ const std::map<int, int>& get_weapons_map()
 		case ap_game_t::doom: return doom_weapons_map;
 		case ap_game_t::doom2: return doom2_weapons_map;
 		case ap_game_t::heretic: return heretic_weapons_map;
+		case ap_game_t::doom_open_world: return doom_weapons_map;
 	}
 }
 
@@ -1105,6 +1126,7 @@ const std::map<int, std::string>& get_sprites()
 		case ap_game_t::doom: return ap_doom_type_sprites;
 		case ap_game_t::doom2: return ap_doom2_type_sprites;
 		case ap_game_t::heretic: return ap_heretic_type_sprites;
+		case ap_game_t::doom_open_world: return ap_doom_open_world_type_sprites;
 	}
 }
 
@@ -1483,7 +1505,7 @@ void apdoom_check_victory()
 {
 	if (ap_state.victory) return;
 
-	if (ap_state.goal == 1 && (ap_game == ap_game_t::doom || ap_game == ap_game_t::heretic))
+	if (ap_state.goal == 1 && (ap_game == ap_game_t::doom || ap_game == ap_game_t::doom_open_world || ap_game == ap_game_t::heretic))
 	{
 		for (int ep = 0; ep < ap_episode_count; ++ep)
 		{
@@ -1558,6 +1580,7 @@ void apdoom_send_message(const char* msg)
 					{
 						case ap_game_t::doom:
 						case ap_game_t::doom2:
+						case ap_game_t::doom_open_world:
 							smsg = "!hint " + level_name + " - Computer area map";
 							break;
 						case ap_game_t::heretic:
@@ -1571,6 +1594,7 @@ void apdoom_send_message(const char* msg)
 					{
 						case ap_game_t::doom:
 						case ap_game_t::doom2:
+						case ap_game_t::doom_open_world:
 							smsg = "!hint " + level_name + " - Blue " + (level_info->use_skull[0] ? "skull key" : "keycard");
 							break;
 						case ap_game_t::heretic:
@@ -1584,6 +1608,7 @@ void apdoom_send_message(const char* msg)
 					{
 						case ap_game_t::doom:
 						case ap_game_t::doom2:
+						case ap_game_t::doom_open_world:
 							smsg = "!hint " + level_name + " - Yellow " + (level_info->use_skull[1] ? "skull key" : "keycard");
 							break;
 						case ap_game_t::heretic:
@@ -1597,6 +1622,7 @@ void apdoom_send_message(const char* msg)
 					{
 						case ap_game_t::doom:
 						case ap_game_t::doom2:
+						case ap_game_t::doom_open_world:
 							smsg = "!hint " + level_name + " - Red " + (level_info->use_skull[0] ? "skull key" : "keycard");
 							break;
 						case ap_game_t::heretic:
@@ -1609,6 +1635,7 @@ void apdoom_send_message(const char* msg)
 					{
 						case ap_game_t::doom:
 						case ap_game_t::doom2:
+						case ap_game_t::doom_open_world:
 							break;
 						case ap_game_t::heretic:
 							smsg = "!hint " + level_name + " - Green key";
