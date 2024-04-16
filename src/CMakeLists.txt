@@ -11,6 +11,9 @@ set(COMMON_SOURCE_FILES
     m_argv.c             m_argv.h
     m_misc.c             m_misc.h)
 
+add_subdirectory(archipelago)
+include_directories(archipelago)
+
 # Dedicated server (chocolate-server):
 
 set(DEDSERV_FILES
@@ -33,7 +36,7 @@ set(DEDSERV_FILES
 add_executable("${PROGRAM_PREFIX}server" WIN32 ${COMMON_SOURCE_FILES} ${DEDSERV_FILES})
 target_include_directories("${PROGRAM_PREFIX}server"
                            PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/../")
-target_link_libraries("${PROGRAM_PREFIX}server" SDL2::SDL2main SDL2::SDL2)
+target_link_libraries("${PROGRAM_PREFIX}server" SDL2::SDL2main SDL2::SDL2 archipelago)
 if(ENABLE_SDL2_NET)
     target_link_libraries("${PROGRAM_PREFIX}server" SDL2_net::SDL2_net)
 endif()
@@ -148,8 +151,6 @@ endif()
 if(WIN32)
 	list(APPEND EXTRA_LIBS winmm)
 endif()
-
-add_subdirectory(archipelago)
 list(APPEND EXTRA_LIBS archipelago)
 
 if(WIN32)
@@ -254,9 +255,9 @@ endif()
 add_executable(midiread midifile.c z_native.c i_system.c m_argv.c m_misc.c d_iwad.c deh_str.c m_config.c)
 target_compile_definitions(midiread PRIVATE "-DTEST")
 target_include_directories(midiread PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/../")
-target_link_libraries(midiread SDL2::SDL2)
+target_link_libraries(midiread SDL2::SDL2 archipelago)
 
 add_executable(mus2mid mus2mid.c memio.c z_native.c i_system.c m_argv.c m_misc.c d_iwad.c deh_str.c m_config.c)
 target_compile_definitions(mus2mid PRIVATE "-DSTANDALONE")
 target_include_directories(mus2mid PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/../")
-target_link_libraries(mus2mid SDL2::SDL2)
+target_link_libraries(mus2mid SDL2::SDL2 archipelago)

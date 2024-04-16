@@ -196,7 +196,7 @@ P_TeleportMove
 
     // If it's the player, make sure to reset hub timer by like 5sec so we don't accidentally retrigger it
     if (thing == players[consoleplayer].mo)
-        leveltimesinceload = min(leveltimesinceload, 175);
+        leveltimesinceload = MIN(leveltimesinceload, 175);
 	
     return true;
 }

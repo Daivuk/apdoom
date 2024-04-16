@@ -1267,11 +1267,11 @@ void G_Ticker (void)
             {
                 switch (i)
                 {
-                    case wp_pistol: p->ammo[am_clip] = max(p->ammo[am_clip], deh_initial_bullets); break;
-                    case wp_shotgun: p->ammo[am_shell] = max(p->ammo[am_shell], 30); break;
-                    case wp_missile: p->ammo[am_misl] = max(p->ammo[am_misl], 10); break;
-                    case wp_plasma: p->ammo[am_cell] = max(p->ammo[am_cell], 150); break;
-                    case wp_bfg: p->ammo[am_cell] = max(p->ammo[am_cell], 150); break;
+                    case wp_pistol: p->ammo[am_clip] = MAX(p->ammo[am_clip], deh_initial_bullets); break;
+                    case wp_shotgun: p->ammo[am_shell] = MAX(p->ammo[am_shell], 30); break;
+                    case wp_missile: p->ammo[am_misl] = MAX(p->ammo[am_misl], 10); break;
+                    case wp_plasma: p->ammo[am_cell] = MAX(p->ammo[am_cell], 150); break;
+                    case wp_bfg: p->ammo[am_cell] = MAX(p->ammo[am_cell], 150); break;
                 }
             }
         }
@@ -1749,17 +1749,17 @@ void on_spawn_ap_states()
         {
             switch (i)
             {
-                case wp_pistol: p->ammo[am_clip] = max(p->ammo[am_clip], deh_initial_bullets); break;
-                case wp_shotgun: p->ammo[am_shell] = max(p->ammo[am_shell], 30); break;
-                case wp_missile: p->ammo[am_misl] = max(p->ammo[am_misl], 10); break;
-                case wp_plasma: p->ammo[am_cell] = max(p->ammo[am_cell], 150); break;
-                case wp_bfg: p->ammo[am_cell] = max(p->ammo[am_cell], 150); break;
+                case wp_pistol: p->ammo[am_clip] = MAX(p->ammo[am_clip], deh_initial_bullets); break;
+                case wp_shotgun: p->ammo[am_shell] = MAX(p->ammo[am_shell], 30); break;
+                case wp_missile: p->ammo[am_misl] = MAX(p->ammo[am_misl], 10); break;
+                case wp_plasma: p->ammo[am_cell] = MAX(p->ammo[am_cell], 150); break;
+                case wp_bfg: p->ammo[am_cell] = MAX(p->ammo[am_cell], 150); break;
             }
         }
     }
     p->neghealth = p->health = deh_initial_health;
     if (p->mo) p->mo->health = p->health;
-    leveltimesinceload = min(leveltimesinceload, 175);
+    leveltimesinceload = MIN(leveltimesinceload, 175);
 }
 
 //

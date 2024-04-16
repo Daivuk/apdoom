@@ -24,6 +24,9 @@
 #endif
 #else
 #include <sys/types.h>
+#include <sys/stat.h>
+
+#define strnicmp strncasecmp
 #endif
 
 
@@ -408,7 +411,7 @@ int apdoom_init(ap_settings_t* settings)
 	max_map_count = 0; // That's really the map count
 	for (const auto& episode_level_info : level_info_table)
 	{
-		max_map_count = max(max_map_count, (int)episode_level_info.size());
+		max_map_count = std::max(max_map_count, (int)episode_level_info.size());
 	}
 
 	printf("APDOOM: Initializing Game: \"%s\", Server: %s, Slot: %s\n", settings->game, settings->ip, settings->player_name);

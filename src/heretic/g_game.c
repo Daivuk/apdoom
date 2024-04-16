@@ -1260,12 +1260,12 @@ void G_Ticker(void)
                     {
                         switch (i)
                         {
-                            case wp_goldwand: p->ammo[am_goldwand] = max(p->ammo[am_goldwand], 50); break;
-                            case wp_crossbow: p->ammo[am_crossbow] = max(p->ammo[am_crossbow], 30); break;
-                            case wp_blaster: p->ammo[am_blaster] = max(p->ammo[am_blaster], 50); break;
-                            case wp_skullrod: p->ammo[am_skullrod] = max(p->ammo[am_skullrod], 150); break;
-                            case wp_phoenixrod: p->ammo[am_phoenixrod] = max(p->ammo[am_phoenixrod], 10); break;
-                            case wp_mace: p->ammo[am_mace] = max(p->ammo[am_mace], 150); break;
+                            case wp_goldwand: p->ammo[am_goldwand] = MAX(p->ammo[am_goldwand], 50); break;
+                            case wp_crossbow: p->ammo[am_crossbow] = MAX(p->ammo[am_crossbow], 30); break;
+                            case wp_blaster: p->ammo[am_blaster] = MAX(p->ammo[am_blaster], 50); break;
+                            case wp_skullrod: p->ammo[am_skullrod] = MAX(p->ammo[am_skullrod], 150); break;
+                            case wp_phoenixrod: p->ammo[am_phoenixrod] = MAX(p->ammo[am_phoenixrod], 10); break;
+                            case wp_mace: p->ammo[am_mace] = MAX(p->ammo[am_mace], 150); break;
                         }
                     }
                 }
@@ -1692,18 +1692,18 @@ void on_spawn_ap_states()
         {
             switch (i)
             {
-                case wp_goldwand: p->ammo[am_goldwand] = max(p->ammo[am_goldwand], 50); break;
-                case wp_crossbow: p->ammo[am_crossbow] = max(p->ammo[am_crossbow], 30); break;
-                case wp_blaster: p->ammo[am_blaster] = max(p->ammo[am_blaster], 50); break;
-                case wp_skullrod: p->ammo[am_skullrod] = max(p->ammo[am_skullrod], 150); break;
-                case wp_phoenixrod: p->ammo[am_phoenixrod] = max(p->ammo[am_phoenixrod], 10); break;
-                case wp_mace: p->ammo[am_mace] = max(p->ammo[am_mace], 150); break;
+                case wp_goldwand: p->ammo[am_goldwand] = MAX(p->ammo[am_goldwand], 50); break;
+                case wp_crossbow: p->ammo[am_crossbow] = MAX(p->ammo[am_crossbow], 30); break;
+                case wp_blaster: p->ammo[am_blaster] = MAX(p->ammo[am_blaster], 50); break;
+                case wp_skullrod: p->ammo[am_skullrod] = MAX(p->ammo[am_skullrod], 150); break;
+                case wp_phoenixrod: p->ammo[am_phoenixrod] = MAX(p->ammo[am_phoenixrod], 10); break;
+                case wp_mace: p->ammo[am_mace] = MAX(p->ammo[am_mace], 150); break;
             }
         }
     }
     p->health = 100;
     if (p->mo) p->mo->health = p->health;
-    leveltimesinceload = min(leveltimesinceload, 175);
+    leveltimesinceload = MIN(leveltimesinceload, 175);
 }
 
 void G_DoReborn(int playernum)
