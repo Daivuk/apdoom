@@ -301,7 +301,9 @@ void P_MovePlayer(player_t * player)
     }
     else if (fly > 0)
     {
-        P_PlayerUseArtifact(player, arti_fly);
+        // [AP] this stops fly up cycling inventory with already used wings present
+        if (!wings_timeout)
+            P_PlayerUseArtifact(player, arti_fly);
     }
     if (player->mo->flags2 & MF2_FLY)
     {
