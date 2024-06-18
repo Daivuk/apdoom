@@ -1081,7 +1081,8 @@ ST_Responder (event_t* ev)
 	// [crispy] TNTWEAP0 takes away all weapons and ammo except for the pistol and 50 bullets
 	if (w == -1)
 	{
-	    GiveBackpack(false);
+	    // [AP] don't remove backpack state with cheats
+	    //GiveBackpack(false);
 	    plyr->powers[pw_strength] = 0;
 
 	    for (i = 0; i < NUMWEAPONS; i++)

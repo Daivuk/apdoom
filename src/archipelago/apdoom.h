@@ -89,7 +89,6 @@ typedef struct
     int health;
     int armor_points;
     int armor_type;
-    int backpack; // Has backpack or not
     int ready_weapon; // Last weapon held
     int kill_count; // We accumulate globally
     int item_count;
@@ -97,7 +96,8 @@ typedef struct
     int* powers;
     int* weapon_owned;
     int* ammo;
-    int* max_ammo; // Could be deduced by checking backpack
+    int* max_ammo; // Kept for easing calculations
+    int* capacity_upgrades; // Replaces bool "backpack", track for each weapon
     ap_inventory_slot_t* inventory;
 
 } ap_player_state_t;
@@ -120,6 +120,8 @@ typedef struct
     int check_sanity;
     int reset_level_on_death;
     int goal;
+    int* max_ammo_start; // Starting ammo max
+    int* max_ammo_add; // Ammo max gained with backpack/bag of holding
     
 } ap_state_t;
 

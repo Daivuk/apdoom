@@ -172,14 +172,18 @@ void on_ap_give_item(int doom_type, int ep, int map)
             }
             break;
 
-        case 8: // Backpack
-	        if (!player->backpack)
-	        {
-	            for (int i = 0; i < NUMAMMO; i++)
-		            player->maxammo[i] *= 2;
-	            player->backpack = true;
-                player->message = DEH_String(TXT_ITEMBAGOFHOLDING);
-	        }
+        case 8: // Bag of Holding
+            player->message = DEH_String(TXT_ITEMBAGOFHOLDING);
+            // fall through
+        case 65001: // Wand crystal capacity
+        case 65002: // Ethereal arrow capacity
+        case 65003: // Claw orb capacity
+        case 65004: // Rune capacity
+        case 65005: // Flame orb capacity
+        case 65006: // Mace sphere capacity
+            // update max ammo with newly recalced values
+            for (int i = 0; i < NUMAMMO; i++)
+                player->maxammo[i] = ap_state.player_state.max_ammo[i];
             break;
 
         // Weapons

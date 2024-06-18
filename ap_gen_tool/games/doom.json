@@ -85,8 +85,7 @@
         {"doom_type": 2004, "name": "Plasma gun", "group": "Weapons", "sprite": "PLASA0"},
         {"doom_type": 2005, "name": "Chainsaw", "group": "Weapons", "sprite": "CSAWA0"},
         {"doom_type": 2002, "name": "Chaingun", "group": "Weapons", "sprite": "MGUNA0"},
-        {"doom_type": 2006, "name": "BFG9000", "group": "Weapons", "sprite": "BFUGA0"},
-        {"doom_type": 8, "name": "Backpack", "group": "", "sprite": "BPAKA0"}
+        {"doom_type": 2006, "name": "BFG9000", "group": "Weapons", "sprite": "BFUGA0"}
     ],
     "fillers": [
         {"doom_type": 2018, "name": "Armor", "group": "Powerups", "sprite": "ARM1A0"},
@@ -105,6 +104,13 @@
     ],
     "unique_fillers": [
         {"doom_type": 2026, "name": "Computer area map", "group": "Computer area maps", "sprite": "PMAPA0"}
+    ],
+    "capacity_upgrades": [
+        {"doom_type": 8, "name": "Backpack", "group": "", "sprite": "BPAKA0"},
+        {"doom_type": 65001, "name": "Bullet capacity", "group": "", "sprite": "BPAKA0"},
+        {"doom_type": 65002, "name": "Shell capacity", "group": "", "sprite": "BPAKA0"},
+        {"doom_type": 65003, "name": "Energy cell capacity", "group": "", "sprite": "BPAKA0"},
+        {"doom_type": 65004, "name": "Rocket capacity", "group": "", "sprite": "BPAKA0"}
     ],
     "keys": [
         {"doom_type": 5, "name": "Blue keycard", "group": "Keys", "key": 0, "use_skull": false, "region_name": "Blue", "color": [0, 0, 1], "sprite": "BKEYB0"},

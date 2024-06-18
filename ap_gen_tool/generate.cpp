@@ -299,6 +299,14 @@ int generate(game_t* game)
 
     for (const auto& def : game->progressions)
         add_item(def.name, def.doom_type, 1, PROGRESSION, def.group);
+
+    // Backpack / Bag of Holding are handled kinda unusually because they used to be considered progression.
+    for (const auto& def : game->capacity_upgrades)
+    {
+        if (def.doom_type == 8)
+            add_item(def.name, def.doom_type, 0, USEFUL, def.group);
+    }
+
     for (const auto& def : game->fillers)
         add_item(def.name, def.doom_type, 0, FILLER, def.group);
     
@@ -426,6 +434,14 @@ int generate(game_t* game)
     }
 
     OLog(std::to_string(total_loc_count) + " locations\n" + std::to_string(total_item_count - 3) + " items");
+
+    // Items unique to Archipelago: Capacity upgrades (excluding backpack / bag of holding)
+    item_next_id = item_id_base + 600;
+    for (const auto& def : game->capacity_upgrades)
+    {
+        if (def.doom_type != 8)
+            add_item(def.name, def.doom_type, 0, USEFUL, def.group);
+    }
 
     //--- Remap location's IDs
     {
@@ -857,6 +873,8 @@ class LocationDict(TypedDict, total=False): \n\
         for (const auto& item : game->unique_progressions)
             fprintf(fout, "    {%i, \"%s\"},\n", item.doom_type, item.sprite.c_str());
         for (const auto& item : game->unique_fillers)
+            fprintf(fout, "    {%i, \"%s\"},\n", item.doom_type, item.sprite.c_str());
+        for (const auto& item : game->capacity_upgrades)
             fprintf(fout, "    {%i, \"%s\"},\n", item.doom_type, item.sprite.c_str());
         for (const auto& item : game->keys)
             fprintf(fout, "    {%i, \"%s\"},\n", item.item.doom_type, item.item.sprite.c_str());

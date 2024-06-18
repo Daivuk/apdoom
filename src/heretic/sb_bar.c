@@ -993,6 +993,10 @@ void DrawMainBar(void)
             V_DrawPatch(111, 172,
                         W_CacheLumpName(DEH_String(ammopic[CPlayer->readyweapon - 1]),
                                         PU_CACHE));
+
+            // [AP] draw maximum ammo, for quality of life with non-default max ammos
+            V_DrawPatch(120, 182, W_CacheLumpName("STYSLASH", PU_CACHE));
+            DrSmallNumber(CPlayer->maxammo[wpnlev1info[CPlayer->readyweapon].ammo], 130, 182);
         }
         oldammo = temp;
         oldweapon = CPlayer->readyweapon;
@@ -1523,14 +1527,15 @@ static void CheatAddRemoveWpnFunc(player_t *player, Cheat_t *cheat)
     if (w == -1)
     {
         // remove backpack if the player has it
-        if (player->backpack)
-        {
-            player->backpack = false;
-            for (i = 0; i < NUMAMMO; i++)
-            {
-                player->maxammo[i] /= 2;
-            }
-        }
+        // [AP] don't remove backpack state with cheats
+        //if (player->backpack)
+        //{
+        //    player->backpack = false;
+        //    for (i = 0; i < NUMAMMO; i++)
+        //    {
+        //        player->maxammo[i] /= 2;
+        //    }
+        //}
 
         // remove Tome of Power if active
         player->powers[pw_weaponlevel2] = 0;

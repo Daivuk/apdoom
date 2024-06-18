@@ -253,12 +253,15 @@ void on_ap_give_item(int doom_type, int ep, int map)
             break;
 
         case 8: // Backpack
-	        if (!player->backpack)
-	        {
-	            for (int i = 0; i < NUMAMMO; i++)
-		            player->maxammo[i] *= 2;
-	            player->backpack = true;
-	        }
+            player->message = DEH_String(GOTBACKPACK);
+            // fall through
+        case 65001: // Bullet capacity
+        case 65002: // Shell capacity
+        case 65003: // Energy cell capacity
+        case 65004: // Rocket capacity
+            // update max ammo with newly recalced values
+            for (int i = 0; i < NUMAMMO; i++)
+                player->maxammo[i] = ap_state.player_state.max_ammo[i];
             break;
 
         // Weapons

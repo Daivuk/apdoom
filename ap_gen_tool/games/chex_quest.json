@@ -41,8 +41,7 @@
         {"doom_type": 2004, "name": "Phasing zorcher", "group": "Weapons", "sprite": "PLASA0"},
         {"doom_type": 2005, "name": "Super bootspork", "group": "Weapons", "sprite": "CSAWA0"},
         {"doom_type": 2002, "name": "Rapid zorcher", "group": "Weapons", "sprite": "MGUNA0"},
-        {"doom_type": 2006, "name": "LAZ device", "group": "Weapons", "sprite": "BFUGA0"},
-        {"doom_type": 8, "name": "Zorchpak", "group": "", "sprite": "BPAKA0"}
+        {"doom_type": 2006, "name": "LAZ device", "group": "Weapons", "sprite": "BFUGA0"}
     ],
     "fillers": [
         {"doom_type": 2018, "name": "Chex armor", "group": "Powerups", "sprite": "ARM1A0"},
@@ -59,6 +58,9 @@
     ],
     "unique_fillers": [
         {"doom_type": 2026, "name": "Computer area map", "group": "Computer area maps", "sprite": "PMAPA0"}
+    ],
+    "capacity_upgrades": [
+        {"doom_type": 8, "name": "Zorchpak", "group": "", "sprite": "BPAKA0"}
     ],
     "keys": [
         {"doom_type": 5, "name": "Blue key", "group": "Keys", "key": 0, "use_skull": false, "region_name": "Blue", "color": [0, 0, 1], "sprite": "BKEYB0"},

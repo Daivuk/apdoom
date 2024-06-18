@@ -222,6 +222,7 @@ struct game_t
     std::vector<ap_item_def_t> fillers;
     std::vector<ap_item_def_t> unique_progressions;
     std::vector<ap_item_def_t> unique_fillers;
+    std::vector<ap_item_def_t> capacity_upgrades;
     std::vector<ap_key_def_t> keys;
     std::map<std::string, int64_t> loc_remap;
     std::map<std::string, int64_t> item_remap;
