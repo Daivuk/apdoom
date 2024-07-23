@@ -2515,3 +2515,42 @@ void ST_DrawDemoTimer (const int time)
 	dp_translucent = false;
 }
 
+//--------------------------------------------------------------------------
+// [AP] used for level select, to avoid re-tagging static graphics (causing later memory issues)
+
+void ST_DrawKey(int x, int y, int which, boolean is_skull)
+{
+	if (is_skull)
+		which += 3;
+
+    V_DrawPatch(x + 2, y + 1, keys[which]);
+}
+
+void ST_RightAlignedShortNum(int x, int y, int digit)
+{
+    x -= 4;
+
+    do
+    {
+        int i = digit % 10;
+        V_DrawPatch(x, y, shortnum[i]);
+        x -= 4;
+        digit /= 10;
+    }
+    while (digit);
+}
+
+void ST_LeftAlignedShortNum(int x, int y, int digit)
+{
+    int len = 0;
+    int i = digit;
+
+    do
+    {
+        len += 4;
+        i /= 10;
+    }
+    while (i);
+
+    ST_RightAlignedShortNum(x + len, y, digit);
+}

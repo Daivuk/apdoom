@@ -30,6 +30,9 @@
 
 extern boolean automapactive;
 
+// Functions in "sb_bar.c" needed for drawing things using status bar graphics
+void SB_RightAlignedSmallNum(int x, int y, int digit);
+void SB_LeftAlignedSmallNum(int x, int y, int digit);
 
 typedef struct
 {
@@ -196,51 +199,6 @@ int prev_ep = 0;
 int ep_anim = 0;
 int urh_anim = 0;
 int activating_level_select_anim = 200;
-
-
-
-static const char* YELLOW_DIGIT_LUMP_NAMES[] = {
-    "SMALLIN0", "SMALLIN1", "SMALLIN2", "SMALLIN3", "SMALLIN4", 
-    "SMALLIN5", "SMALLIN6", "SMALLIN7", "SMALLIN8", "SMALLIN9"
-};
-
-
-void print_right_aligned_yellow_digit(int x, int y, int digit)
-{
-    x -= 4;
-
-    if (!digit)
-    {
-        V_DrawPatch(x, y, W_CacheLumpName(YELLOW_DIGIT_LUMP_NAMES[0], PU_CACHE));
-        return;
-    }
-
-    while (digit)
-    {
-        int i = digit % 10;
-        V_DrawPatch(x, y, W_CacheLumpName(YELLOW_DIGIT_LUMP_NAMES[i], PU_CACHE));
-        x -= 4;
-        digit /= 10;
-    }
-}
-
-
-void print_left_aligned_yellow_digit(int x, int y, int digit)
-{
-    if (!digit)
-    {
-        x += 4;
-    }
-
-    int len = 0;
-    int d = digit;
-    while (d)
-    {
-        len++;
-        d /= 10;
-    }
-    print_right_aligned_yellow_digit(x + len * 4, y, digit);
-}
 
 
 void play_level(int ep, int lvl)
@@ -613,9 +571,9 @@ void DrawEpisodicLevelSelectStats()
             }
 
             // Progress
-            print_right_aligned_yellow_digit(x + 30 + text_w - 4, y - 1, ap_level_state->check_count);
+            SB_RightAlignedSmallNum(x + 30 + text_w - 4, y - 1, ap_level_state->check_count);
             V_DrawPatch(x + 30 + text_w - 3, y - 1, W_CacheLumpName("STYSLASH", PU_CACHE));
-            print_left_aligned_yellow_digit(x + 30 + text_w + 3, y - 1, ap_state.check_sanity ? ap_level_info->check_count : ap_level_info->check_count - ap_level_info->sanity_check_count);
+            SB_LeftAlignedSmallNum(x + 30 + text_w + 3, y - 1, ap_state.check_sanity ? ap_level_info->check_count : ap_level_info->check_count - ap_level_info->sanity_check_count);
         }
         else
         {
@@ -644,9 +602,9 @@ void DrawEpisodicLevelSelectStats()
             }
 
             // Progress
-            print_right_aligned_yellow_digit(x - 4, y + stat_y_offset, ap_level_state->check_count);
+            SB_RightAlignedSmallNum(x - 4, y + stat_y_offset, ap_level_state->check_count);
             V_DrawPatch(x - 3, y + stat_y_offset, W_CacheLumpName("STYSLASH", PU_CACHE));
-            print_left_aligned_yellow_digit(x + 3, y + stat_y_offset, ap_state.check_sanity ? ap_level_info->check_count : ap_level_info->check_count - ap_level_info->sanity_check_count);
+            SB_LeftAlignedSmallNum(x + 3, y + stat_y_offset, ap_state.check_sanity ? ap_level_info->check_count : ap_level_info->check_count - ap_level_info->sanity_check_count);
         }
     }
 

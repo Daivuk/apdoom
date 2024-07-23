@@ -40,6 +40,10 @@ void WI_drawAnimatedBack(void);
 void WI_initVariables(wbstartstruct_t* wbstartstruct);
 void WI_loadData(void);
 
+// Functions in "st_stuff.c" needed for drawing things using status bar graphics
+void ST_DrawKey(int x, int y, int which, boolean is_skull);
+void ST_RightAlignedShortNum(int x, int y, int digit);
+void ST_LeftAlignedShortNum(int x, int y, int digit);
 
 typedef struct
 {
@@ -202,50 +206,6 @@ int selected_ep = 0;
 int prev_ep = 0;
 int ep_anim = 0;
 int urh_anim = 0;
-
-static const char* YELLOW_DIGIT_LUMP_NAMES[] = {
-    "STYSNUM0", "STYSNUM1", "STYSNUM2", "STYSNUM3", "STYSNUM4", 
-    "STYSNUM5", "STYSNUM6", "STYSNUM7", "STYSNUM8", "STYSNUM9"
-};
-
-
-void print_right_aligned_yellow_digit(int x, int y, int digit)
-{
-    x -= 4;
-
-    if (!digit)
-    {
-        V_DrawPatch(x, y, W_CacheLumpName(YELLOW_DIGIT_LUMP_NAMES[0], PU_CACHE));
-        return;
-    }
-
-    while (digit)
-    {
-        int i = digit % 10;
-        V_DrawPatch(x, y, W_CacheLumpName(YELLOW_DIGIT_LUMP_NAMES[i], PU_CACHE));
-        x -= 4;
-        digit /= 10;
-    }
-}
-
-
-void print_left_aligned_yellow_digit(int x, int y, int digit)
-{
-    if (!digit)
-    {
-        x += 4;
-    }
-
-    int len = 0;
-    int d = digit;
-    while (d)
-    {
-        len++;
-        d /= 10;
-    }
-    print_right_aligned_yellow_digit(x + len * 4, y, digit);
-}
-
 
 void restart_wi_anims()
 {
@@ -631,9 +591,6 @@ void DrawEpisodicLevelSelectStats()
             V_DrawPatch(x, y, W_CacheLumpName("WILOCK", PU_CACHE));
 
         // Keys
-        const char* key_lump_names[] = {"STKEYS0", "STKEYS1", "STKEYS2"};
-        const char* key_skull_lump_names[] = {"STKEYS3", "STKEYS4", "STKEYS5"};
-
         int key_x = 0;
         int key_y = 0;
 
@@ -645,12 +602,9 @@ void DrawEpisodicLevelSelectStats()
             {
                 if (ap_level_info->keys[k])
                 {
-                    const char* key_lump_name = key_lump_names[k];
-                    if (ap_level_info->use_skull[k])
-                        key_lump_name = key_skull_lump_names[k];
                     V_DrawPatch(key_x, key_y, W_CacheLumpName("KEYBG", PU_CACHE));
                     if (ap_level_state->keys[k])
-                        V_DrawPatch(key_x + 2, key_y + 1, W_CacheLumpName(key_lump_name, PU_CACHE));
+                        ST_DrawKey(key_x, key_y, k, ap_level_info->use_skull[k]);
                     key_x += key_h_spacing;
                 }
             }
@@ -663,11 +617,8 @@ void DrawEpisodicLevelSelectStats()
             {
                 if (ap_level_info->keys[k])
                 {
-                    const char* key_lump_name = key_lump_names[k];
-                    if (ap_level_info->use_skull[k])
-                        key_lump_name = key_skull_lump_names[k];
                     V_DrawPatch(key_x, key_y, W_CacheLumpName("KEYBG", PU_CACHE));
-                    V_DrawPatch(key_x + 2, key_y + 1, W_CacheLumpName(key_lump_name, PU_CACHE));
+                    ST_DrawKey(key_x, key_y, k, ap_level_info->use_skull[k]);
                     if (ap_level_state->keys[k])
                     {
                         if (level_pos->keys_offset < 0)
@@ -692,9 +643,9 @@ void DrawEpisodicLevelSelectStats()
             progress_x = key_x + 8;
             progress_y = key_y + 2;
         }
-        print_right_aligned_yellow_digit(progress_x, progress_y, ap_level_state->check_count);
+        ST_RightAlignedShortNum(progress_x, progress_y, ap_level_state->check_count);
         V_DrawPatch(progress_x + 1, progress_y, W_CacheLumpName("STYSLASH", PU_CACHE));
-        print_left_aligned_yellow_digit(progress_x + 8, progress_y, ap_level_info->check_count - ap_level_info->sanity_check_count);
+        ST_LeftAlignedShortNum(progress_x + 8, progress_y, ap_level_info->check_count - ap_level_info->sanity_check_count);
 
         // "You are here"
         if (i == selected_level[selected_ep] && urh_anim < 25)

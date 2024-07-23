@@ -1070,18 +1070,31 @@ void HU_AddAPMessage(const char* message)
         if (message[j] != '\n')
         {
             int w = HULib_measureText(message + i, j - i);
-            if (w >= ORIGWIDTH + WIDESCREENDELTA - 8 && word_start == i)
+
+            if (w >= (ORIGWIDTH + WIDESCREENDELTA*2) - 8 || (j - i) + 2 >= HU_MAXLINELENGTH)
             {
-                if (j > i && word_start == i) --j;
-            }
-            else
-            {
-                if (w < ORIGWIDTH + WIDESCREENDELTA - 8 && (j - i) + 2 < HU_MAXLINELENGTH && j < len)
+                // out of space, but haven't advanced at all
+                if (j - 1 <= i)
                 {
-                    j++;
-                    continue;
+                    // just stop; we can't do anything further at this point
+                    printf("HU_AddAPMessage: cannot word wrap string (stopped at %i)\n", i);
+                    break;
                 }
-                if (j < len) j = word_start;
+                // out of space without finding another space to break at
+                else if (word_start == i)
+                {
+                    --j;
+                }
+                // if not at end of string, jump back to the last word
+                else if (j < len)
+                {
+                    j = word_start;
+                }
+            }
+            else if (j < len)
+            {
+                ++j;
+                continue;
             }
         }
         else
@@ -1133,6 +1146,7 @@ int HU_GetActiveAPMessageCount()
 
 void HU_UpdateAPMessagePosition(int i)
 {
+    w_ap_messages[i].l[0].x = HU_MSGX; // if window aspect ratio changed
     w_ap_messages[i].l[0].y = 3 * 8 - i * 8 - 4 * 8 + HU_GetActiveAPMessageCount() * 8 + ap_message_anim;
 }
 

@@ -1758,3 +1758,35 @@ static void CheatNoTargetFunc(player_t *player, Cheat_t *cheat)
         P_SetMessage(player, DEH_String(TXT_CHEATNOTARGETOFF), false);
     }
 }
+
+//--------------------------------------------------------------------------
+// [AP] used for level select, to avoid re-tagging static graphics (causing later memory issues)
+
+void SB_RightAlignedSmallNum(int x, int y, int digit)
+{
+    x -= 4;
+
+    do
+    {
+        int i = digit % 10;
+        V_DrawPatch(x, y, PatchSmNumbers[i]);
+        x -= 4;
+        digit /= 10;
+    }
+    while (digit);
+}
+
+void SB_LeftAlignedSmallNum(int x, int y, int digit)
+{
+    int len = 0;
+    int i = digit;
+
+    do
+    {
+        len += 4;
+        i /= 10;
+    }
+    while (i);
+
+    SB_RightAlignedSmallNum(x + len, y, digit);
+}
