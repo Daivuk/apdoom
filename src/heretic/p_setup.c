@@ -930,7 +930,7 @@ void P_LoadThings(int lump)
                         int rnd = rand() % total;
                         if (rnd < ratios[0])
                         {
-                            switch (rand()%2)
+                            switch (rand()%3)
                             {
                                 case 0: things_type_remap[i] = 81; break; // Crystal Vial
                                 case 1: things_type_remap[i] = 10; break; // Wand Crystal
@@ -949,7 +949,7 @@ void P_LoadThings(int lump)
                         }
                         else
                         {
-                            switch (rand()%6)
+                            switch (rand()%7)
                             {
                                 case 0: things_type_remap[i] = 12; break; // Crystal Geode
                                 case 1: things_type_remap[i] = 55; break; // Energy Orb
