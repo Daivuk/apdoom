@@ -2169,7 +2169,7 @@ void D_DoomMain (void)
     DEH_ParseCommandLine();
 
     // Always merge Archipelago WAD
-    W_MergeFile("apdoom.wad");
+    W_MergeFile("APDOOM.WAD");
 
     // Load PWAD files.
     modifiedgame = W_ParseCommandLine();

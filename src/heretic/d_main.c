@@ -1505,7 +1505,7 @@ void D_DoomMain(void)
     DEH_ParseCommandLine();
     
     // Always merge Archipelago WAD
-    W_MergeFile("apheretic.wad");
+    W_MergeFile("APHERETIC.WAD");
 
     // Load PWAD files.
     W_ParseCommandLine();

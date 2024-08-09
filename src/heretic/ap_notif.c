@@ -64,7 +64,7 @@ cached_icon_t* get_cached_icon(patch_t* patch)
 
 
     // Scale down raw into cached icon (I inverted src and dst, too lazy to change)
-    int max_size = max(patch->width, patch->height);
+    int max_size = MAX(patch->width, patch->height);
     float scale = 1.0f;
     if (max_size > ICON_BLOCK_SIZE)
         scale = (float)max_size / (float)ICON_BLOCK_SIZE;

@@ -24,7 +24,7 @@
 #include "s_sound.h"
 
 void G_PlayerReborn(int player);
-void P_SpawnMapThing(mapthing_t * mthing);
+void P_SpawnMapThing(mapthing_t * mthing, int index);
 
 mobjtype_t PuffType;
 mobj_t *MissileMobj;

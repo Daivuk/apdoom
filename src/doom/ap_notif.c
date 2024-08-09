@@ -32,7 +32,7 @@ cached_icon_t* get_cached_icon(patch_t* patch)
     }
 
     // Not cached yet, cache a new one
-    cached_icon = malloc(sizeof(cached_icon_t));
+    cached_icon = (cached_icon_t*)malloc(sizeof(cached_icon_t));
     if (cached_icon_end) cached_icon_end->next = cached_icon;
     cached_icon_end = cached_icon;
     if (!cached_icon_start) cached_icon_start = cached_icon;
@@ -65,7 +65,7 @@ cached_icon_t* get_cached_icon(patch_t* patch)
 
 
     // Scale down raw into cached icon (I inverted src and dst, too lazy to change)
-    int max_size = max(patch->width, patch->height);
+    int max_size = MAX(patch->width, patch->height);
     float scale = 1.0f;
     if (max_size > ICON_BLOCK_SIZE)
         scale = (float)max_size / (float)ICON_BLOCK_SIZE;

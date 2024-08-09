@@ -1188,7 +1188,7 @@ void HU_TickAPMessages()
         {
             if (ap_message_counters[i])
             {
-                ap_message_counters[i] -= max(1, ap_message_buffer_count / 6);
+                ap_message_counters[i] -= MAX(1, ap_message_buffer_count / 6);
                 if (ap_message_counters[i] <= 0)
                 {
                     ap_message_counters[i] = 0;
@@ -1207,7 +1207,7 @@ void HU_TickAPMessages()
 
     if (ap_message_anim > 0)
     {
-        ap_message_anim -= min(4, max(1, ap_message_buffer_count / 10));
+        ap_message_anim -= MIN(4, MAX(1, ap_message_buffer_count / 10));
         if (ap_message_anim < 0) ap_message_anim = 0;
     }
 }

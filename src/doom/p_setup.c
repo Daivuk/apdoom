@@ -49,7 +49,7 @@
 #include "apdoom2_c_def.h"
 #include "apdoom.h"
 
-void	P_SpawnMapThing (mapthing_t*	mthing);
+void	P_SpawnMapThing (mapthing_t*	mthing, int index);
 
 
 //
