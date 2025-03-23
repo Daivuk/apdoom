@@ -24,7 +24,7 @@ if(MSVC)
     add_definitions("/D_CRT_SECURE_NO_WARNINGS" "/D_CRT_SECURE_NO_DEPRECATE"
                     "/D_CRT_NONSTDC_NO_DEPRECATE")
 else()
-    add_compile_options("-Wall" "-Wredundant-decls")
+    add_compile_options("-Wall" "-Wredundant-decls" "-Wno-format-security" "-Wno-implicit-function-declaration" "-Wno-incompatible-pointer-types")
     set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
     set(CMAKE_INSTALL_RPATH "\$ORIGIN")
 endif()
