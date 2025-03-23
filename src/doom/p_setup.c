@@ -1144,8 +1144,6 @@ void P_LoadThings (int lump)
 	spawnthing.type = SHORT(things_type_remap[i]);
 	spawnthing.options = SHORT(mt->options);
 	
-    auto type_before = spawnthing.type;
-
         // Replace AP locations with AP item
         if ((gamemode != commercial && is_doom_type_ap_location(spawnthing.type)) ||
             (gamemode == commercial && is_doom2_type_ap_location(spawnthing.type)))
