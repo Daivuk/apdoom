@@ -1332,3 +1332,7 @@ static void CreateSavePath(void)
 {
     M_MakeDirectory(SavePath);
 }
+
+
+// Does nothing, but this symbol is referred to by the common main loop.
+void tick_sticky_msgs() {}

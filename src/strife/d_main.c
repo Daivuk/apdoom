@@ -2351,3 +2351,6 @@ void D_DoomMain (void)
 
     D_DoomLoop ();  // never returns
 }
+
+// Does nothing, but this symbol is referred to by the common main loop.
+void tick_sticky_msgs() {}
